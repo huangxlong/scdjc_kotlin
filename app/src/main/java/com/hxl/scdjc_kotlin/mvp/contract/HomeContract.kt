@@ -15,7 +15,10 @@ interface HomeContract {
 
         fun setVideoData(videoData: VideoBean)
 
-        fun showError(errMsg: String)
+        /**
+         * 显示错误信息
+         */
+        fun showError(errorMsg: String, errorCode: Int)
     }
 
     interface Presenter : IPresenter<View> {

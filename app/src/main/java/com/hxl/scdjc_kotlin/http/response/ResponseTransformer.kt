@@ -1,9 +1,8 @@
-package com.hxl.scdjc_kotlin.http
+package com.hxl.scdjc_kotlin.http.response
 
 import com.hazz.kotlinmvp.net.exception.ApiException
 import com.hazz.kotlinmvp.net.exception.ErrorStatus
 import com.hazz.kotlinmvp.net.exception.ExceptionHandle
-import com.hxl.scdjc_kotlin.bean.base.BaseRsp
 
 import io.reactivex.Observable
 import io.reactivex.ObservableSource

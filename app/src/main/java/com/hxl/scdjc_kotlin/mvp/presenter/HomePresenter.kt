@@ -1,8 +1,7 @@
 package com.hxl.scdjc_kotlin.mvp.presenter
 
+import com.hazz.kotlinmvp.net.exception.ExceptionHandle
 import com.hxl.scdjc_kotlin.base.BasePresenter
-import com.hxl.scdjc_kotlin.bean.ArticleBean
-import com.hxl.scdjc_kotlin.http.BaseSubscribe
 import com.hxl.scdjc_kotlin.mvp.contract.HomeContract
 import com.hxl.scdjc_kotlin.mvp.model.HomeModel
 
@@ -21,29 +20,36 @@ class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter
      */
     override fun getArticleData(columnId: Int, currentPage: Int) {
         checkViewAttached()
+        mRootView?.showLoading()
         val disposable = homeModel.getArticle(columnId, currentPage)?.
                 subscribe({ article ->
                     mRootView?.apply {
+                        mRootView?.dismissLoading()
                         setArticleData(article)
                     }
-                }, { throwable ->
+                }, { _ ->
                     mRootView?.apply {
-                        showError(throwable.toString())
+                        showError(ExceptionHandle.errorMsg, ExceptionHandle.errorCode)
                     }
                 })
         addSubscription(disposable!!)
     }
 
+    /**
+     * 获取视屏列表数据
+     */
     override fun getVideoData(columnId: Int, currentPage: Int) {
         checkViewAttached()
+        mRootView?.showLoading()
         val disposable = homeModel.getVideo(columnId, currentPage)?.
                 subscribe({ video ->
                     mRootView?.apply {
+                        mRootView?.dismissLoading()
                         setVideoData(video)
                     }
-                }, { throwable ->
+                }, { _ ->
                     mRootView?.apply {
-                        showError(throwable.toString())
+                        showError(ExceptionHandle.errorMsg, ExceptionHandle.errorCode)
                     }
                 })
         addSubscription(disposable!!)

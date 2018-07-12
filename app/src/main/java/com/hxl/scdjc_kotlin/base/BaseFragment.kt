@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import com.hxl.scdjc_kotlin.R
 import com.hxl.scdjc_kotlin.view.MultipleStatusView
 
 /**
@@ -47,11 +49,7 @@ abstract class BaseFragment : Fragment() {
         initView()
         lazyLoadDataIfPrepared()
         //多种状态切换的view 重试点击事件
-        mLayoutStatusView?.setOnClickListener(mRetryClickListener)
-    }
-
-    open val mRetryClickListener: View.OnClickListener = View.OnClickListener {
-        lazyLoad()
+        mLayoutStatusView?.setOnRetryClickListener { lazyLoad() }
     }
 
     //懒加载

@@ -2,6 +2,7 @@ package com.hxl.scdjc_kotlin.http
 
 import android.util.Log
 import com.google.gson.Gson
+import com.hxl.scdjc_kotlin.app.ApiService
 import com.hxl.scdjc_kotlin.http.cookie.CookiesManager
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.OkHttpClient
@@ -20,7 +21,7 @@ object RetrofitManager {
     private var okHttpClient: OkHttpClient? = null
     private var retrofit: Retrofit? = null
 
-    val service: HttpService by lazy { getHttp()!!.create(HttpService::class.java) }
+    val service: ApiService by lazy { getHttp()!!.create(ApiService::class.java) }
 
     private fun getHttp(): Retrofit? {
         if (okHttpClient == null) {

@@ -1,7 +1,7 @@
-package com.hxl.scdjc_kotlin.http
+package com.hxl.scdjc_kotlin.app
 
 import com.hxl.scdjc_kotlin.bean.*
-import com.hxl.scdjc_kotlin.bean.base.BaseRsp
+import com.hxl.scdjc_kotlin.http.response.BaseRsp
 import retrofit2.http.*
 import io.reactivex.Observable
 
@@ -9,7 +9,7 @@ import io.reactivex.Observable
  * Created by Administrator
  * on 2018/6/27 星期三.
  */
-interface HttpService {
+interface ApiService {
 
 
     /**
@@ -56,4 +56,16 @@ interface HttpService {
     @POST("djc/article/v/article")
     @FormUrlEncoded
     fun getArticleDetail(@Field("id") id: Int): Observable<BaseRsp<ArticleDetailBean>>
+
+
+    /**
+     * 文章点赞
+     *
+     * @param id 文章id
+     * @return
+     */
+    @POST("djc/article/thumbUp")
+    @FormUrlEncoded
+    fun thumbUp(@Field("id") id: Int): Observable<BaseRsp<String>>
+
 }

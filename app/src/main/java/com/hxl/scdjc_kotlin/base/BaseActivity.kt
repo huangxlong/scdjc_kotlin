@@ -4,9 +4,9 @@ import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.view.WindowManager
 import com.hxl.scdjc_kotlin.R
+import com.hxl.scdjc_kotlin.app.App
 import com.hxl.scdjc_kotlin.view.LoadingDialog
 import com.hxl.scdjc_kotlin.view.MultipleStatusView
 
@@ -26,6 +26,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         tag = javaClass.simpleName
         setContentView(getLayout())
+        App.addActivity(this)
         setWindowStatusBarColor(this, R.color.colorPrimary)
         initView()
         loadData()
@@ -33,11 +34,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun initListener() {
-        mLayoutStatusView?.setOnClickListener(mRetryClickListener)
-    }
-
-    open val mRetryClickListener: View.OnClickListener = View.OnClickListener {
-        loadData()
+        mLayoutStatusView?.setOnRetryClickListener { loadData() }
     }
 
     /**
@@ -93,6 +90,10 @@ abstract class BaseActivity : AppCompatActivity() {
         loadingDialog.dismiss()
     }
 
+    override fun onDestroy() {
+        App.removeActivity(this)
+        super.onDestroy()
+    }
 
     private fun isDestroy(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {

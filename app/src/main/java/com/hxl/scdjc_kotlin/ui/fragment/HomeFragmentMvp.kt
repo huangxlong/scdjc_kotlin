@@ -1,5 +1,6 @@
 package com.hxl.scdjc_kotlin.ui.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.hazz.kotlinmvp.net.exception.ErrorStatus
 import com.hxl.scdjc_kotlin.R
 import com.hxl.scdjc_kotlin.app.AppConstant
 import com.hxl.scdjc_kotlin.base.BaseFragment
@@ -31,14 +33,13 @@ import com.hxl.scdjc_kotlin.view.LoadingView
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
-import kotlinx.android.synthetic.main.fragment_home_.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  * Created by Administrator
  * on 2018/7/11 星期三.
  */
 class HomeFragmentMvp : BaseFragment(), HomeContract.View {
-
     private lateinit var headerView: View
     private var videoList = mutableListOf<RspDto.Video>()
     private var newsList = mutableListOf<RspDto.Article>()
@@ -48,6 +49,7 @@ class HomeFragmentMvp : BaseFragment(), HomeContract.View {
     private var columnId: Int = 0
     private var currentPage: Int = 1
     private var isLoadMore: Boolean = false
+    private var isRefresh: Boolean = false
 
     private val mPresenter by lazy { HomePresenter() }
     private var adapter: BaseQuickAdapter<*, *>? = null
@@ -68,16 +70,23 @@ class HomeFragmentMvp : BaseFragment(), HomeContract.View {
         }
     }
 
-    override fun getLayout(): Int = R.layout.fragment_home_
+    override fun getLayout(): Int = R.layout.fragment_home
 
     override fun initView() {
         mPresenter.attachView(this)
+        mLayoutStatusView = multipleStatusView
         aCache = ACache.get(mContext)
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary)
         name = columnList!!.templateName
         columnId = columnList!!.id
         initBannerAndColumnChild()
         initRecycler()
+        swipeRefresh.setOnRefreshListener {
+            isRefresh = true
+            currentPage = 1
+            adapter!!.setEnableLoadMore(true)
+            startLoad()
+        }
     }
 
     /**
@@ -166,21 +175,35 @@ class HomeFragmentMvp : BaseFragment(), HomeContract.View {
         }
     }
 
-
-    override fun showError(errMsg: String) {
+    override fun showError(errorMsg: String, errorCode: Int) {
         if (isLoadMore) {
             isLoadMore = false
             adapter!!.loadMoreFail()
         }
-        ToastUtil.show(mContext, errMsg)
+        if (isRefresh) {
+            swipeRefresh.isRefreshing = false
+            isRefresh = false
+        }
+        ToastUtil.show(mContext, errorMsg)
+        if (errorCode == ErrorStatus.NETWORK_ERROR) {
+            multipleStatusView?.showNoNetwork()
+        } else {
+            multipleStatusView?.showError()
+        }
     }
 
     override fun showLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (!isLoadMore && !isRefresh) {
+            multipleStatusView.showLoading()
+        }
     }
 
     override fun dismissLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (isRefresh) {
+            swipeRefresh.isRefreshing = false
+        } else if (!isLoadMore && !isRefresh) {
+            multipleStatusView.showContent()
+        }
     }
 
     override fun setArticleData(articleData: ArticleBean) {
@@ -191,8 +214,10 @@ class HomeFragmentMvp : BaseFragment(), HomeContract.View {
                 adapter!!.loadMoreComplete()
             }
         }
-        loadingView.setStatus(LoadingView.STATUS_DONE)
-        recycler.visibility = View.VISIBLE
+        if (isRefresh) {
+            newsList.clear()
+        }
+        isRefresh = false
         isLoadMore = false
         newsList.addAll(articleData.articleList!!)
         notifyRecycler()
@@ -206,6 +231,10 @@ class HomeFragmentMvp : BaseFragment(), HomeContract.View {
                 adapter!!.loadMoreComplete()
             }
         }
+        if (isRefresh) {
+            videoList.clear()
+        }
+        isRefresh = false
         isLoadMore = false
         videoList.addAll(videoData.videoList!!)
         notifyRecycler()
@@ -229,6 +258,7 @@ class HomeFragmentMvp : BaseFragment(), HomeContract.View {
     /**
      * 初始化banner...
      */
+    @SuppressLint("InflateParams")
     private fun initBannerAndColumnChild() {
         headerView = LayoutInflater.from(mContext).inflate(R.layout.layout_home_header, null)
         val mBanner: Banner = headerView.findViewById(R.id.banner)
@@ -270,6 +300,4 @@ class HomeFragmentMvp : BaseFragment(), HomeContract.View {
             }
         })
     }
-
-
 }

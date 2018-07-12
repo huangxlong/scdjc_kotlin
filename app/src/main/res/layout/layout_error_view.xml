@@ -7,16 +7,16 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/error_retry_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_error"
-        />
+        android:src="@drawable/ic_error" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColor="@color/color_gray"
-        android:text="@string/data_error" />
+        android:text="@string/data_error"
+        android:textColor="@color/color_gray" />
 
 </LinearLayout>
