@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/layout_logo"
+        android:layout_width="match_parent"
+        android:layout_height="173dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/bg_white">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <RelativeLayout
+                android:id="@+id/layout_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:paddingBottom="8dp"
+                    android:text="@string/btn_text_login"
+                    android:textColor="#e6312a"
+                    android:textSize="15sp" />
+
+                <View
+                    android:id="@+id/view_login"
+                    android:layout_width="50dp"
+                    android:layout_height="4dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#e53229" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@id/layout_login">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:paddingBottom="8dp"
+                    android:text="@string/text_get_user"
+                    android:textColor="#222222"
+                    android:textSize="15sp" />
+
+                <View
+                    android:id="@+id/view_register"
+                    android:layout_width="70dp"
+                    android:layout_height="4dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#e53229"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/login_logo" />
+
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_logo"
+        android:layout_marginTop="4dp" />
+
+
+</RelativeLayout>

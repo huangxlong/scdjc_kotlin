@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BubbleView">
+        <attr name="arrowWidth" format="dimension" />
+        <attr name="angle" format="dimension" />
+        <attr name="arrowHeight" format="dimension" />
+        <attr name="arrowPosition" format="dimension" />
+        <attr name="bubbleColor" format="color" />
+        <attr name="arrowCenter" format="boolean" />
+        <attr name="arrowLocation" format="enum">
+            <enum name="left" value="0x00" />
+            <enum name="right" value="0x01" />
+            <enum name="top" value="0x02" />
+            <enum name="bottom" value="0x03" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="MultipleStatusView">
+        <attr name="loadingView" format="reference"/>
+        <attr name="errorView" format="reference"/>
+        <attr name="emptyView" format="reference"/>
+        <attr name="noNetworkView" format="reference"/>
+        <attr name="contentView" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="LoadingView">
+        <attr name="txt" format="string" />
+        <attr name="imageResource" format="integer" />
+        <attr name="status">
+            <enum name="LOADING" value="0"></enum>
+            <enum name="EMPTY" value="1"></enum>
+            <enum name="ERROR" value="2"></enum>
+        </attr>
+    </declare-styleable>
+
+    <!-- *公共属性* -->
+    <!--圆形-->
+    <attr name="round_as_circle" format="boolean" />
+    <!--全部圆角半径-->
+    <attr name="round_corner" format="integer|dimension" />
+    <!--针对各个角的半径-->
+    <attr name="round_corner_top_left" format="integer|dimension" />
+    <attr name="round_corner_top_right" format="integer|dimension" />
+    <attr name="round_corner_bottom_left" format="integer|dimension" />
+    <attr name="round_corner_bottom_right" format="integer|dimension" />
+
+    <!--描边颜色／半径-->
+    <attr name="stroke_color" format="color|reference" />
+    <attr name="stroke_width" format="integer|dimension" />
+
+    <!-- 是否剪裁 RCLayout 的背景 -->
+    <attr name="clip_background" format="boolean" />
+
+    <!--真正用于解析的属性-->
+    <declare-styleable name="RCAttrs">
+        <attr name="round_as_circle" />
+        <attr name="round_corner" />
+        <attr name="round_corner_top_left" />
+        <attr name="round_corner_top_right" />
+        <attr name="round_corner_bottom_left" />
+        <attr name="round_corner_bottom_right" />
+        <attr name="stroke_color" />
+        <attr name="stroke_width" />
+        <attr name="clip_background" />
+    </declare-styleable>
+
+    <!--假体：用于提示-->
+    <declare-styleable name="RCRelativeLayout">
+        <attr name="round_as_circle" />
+        <attr name="round_corner" />
+        <attr name="round_corner_top_left" />
+        <attr name="round_corner_top_right" />
+        <attr name="round_corner_bottom_left" />
+        <attr name="round_corner_bottom_right" />
+        <attr name="stroke_color" />
+        <attr name="stroke_width" />
+        <attr name="clip_background" />
+    </declare-styleable>
+
+    <!--假体：用于提示-->
+    <declare-styleable name="RCImageView">
+        <attr name="round_as_circle" />
+        <attr name="round_corner" />
+        <attr name="round_corner_top_left" />
+        <attr name="round_corner_top_right" />
+        <attr name="round_corner_bottom_left" />
+        <attr name="round_corner_bottom_right" />
+        <attr name="stroke_color" />
+        <attr name="stroke_width" />
+        <attr name="clip_background" />
+    </declare-styleable>
+
+
+</resources>

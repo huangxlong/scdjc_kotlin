@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">scdjc_kotlin</string>
+    <string name="text_loading">玩命加载中...</string>
+    <string name="toast_exit_app">再按一次退出程序</string>
+    <string name="toast_net_error">当前网络不可用，请检查后重试</string>
+
+    <string name="text_tab_one">炼金术</string>
+    <string name="text_tab_two">藏金阁</string>
+    <string name="text_tab_three">掘金宝</string>
+    <string name="text_tab_four">我的</string>
+    <string name="text_service">我的客服</string>
+    <string name="text_product">已购产品</string>
+    <string name="text_suggest">我的建议</string>
+    <string name="text_password">修改密码</string>
+    <string name="text_about">关于我们</string>
+    <string name="text_logout">退出登录</string>
+    <string name="text_notice">提示</string>
+    <string name="text_search">搜索</string>
+    <string name="text_refresh">刷新</string>
+    <string name="text_back">返回</string>
+    <string name="text_no_data">暂无数据...</string>
+    <string name="text_loading_error">数据加载失败,点击重试...</string>
+    <string name="text_notice_code">(以上内容仅供参考。市场有风险，投资需谨慎。)</string>
+    <string name="text_no_more">我也是有底线的</string>
+
+    <string name="text_statement">【重要声明】本信息仅供四川大决策证券投资顾问有限公司（以下简称“本公司”）的客户使用。 本公司不会因为任何机构或个人接收到本信息而视其为本公司的当然客户。 本信息基于已公开的资料或信息撰写，但本公司不保证该等信息及资料的完整性、准确性。 本信息所载的信息、资料、建议及推测仅反映本公司于本信息发布当日的判断，本信息中的证券或投资标的价格、价值及投资带来的收入可能会波动。在不同时期， 本公司可能撰写并发布与本信息所载资料、建议及推测不一致的信息。 本公司不保证本信息所含信息及资料保持在最新状态，本公司将随时补充、 更新和修订有关信息及资料，但不保证及时公开发布。同时，本公司有权对本信息所含信息在不发出通知的情形下做出修改， 投资者应当自行关注相应的更新或修改。任何有关本信息的摘要或节选都 不代表本信息正式完整的观点，一切须以本公司向客户发布的本信息完整版本为准。 客户不应将本信息为作出其投资决策的惟一参考因素，亦不应认为本信息可以取代客户自身的投资判断与决策。在任何情况下，本公司亦不对任何人因使用本信息中的任何 内容所引致的任何损失负任何责任。市场有风险，投资需谨慎。</string>
+    <string name="text_get_user">获取账号方式</string>
+    <string name="text_phone">联系电话：</string>
+    <string name="text_online">在线时间：</string>
+    <string name="text_pass">3 跳过</string>
+    <string name="text_dialog_logout">退出登录</string>
+    <string name="text_dialog_logout_desc">确认退出登录？</string>
+    <string name="btn_text_cancel">取消</string>
+    <string name="btn_text_sure">确定</string>
+    <string name="btn_text_login">登录</string>
+    <string name="btn_text_report">发表</string>
+
+
+    <string name="text_hint_user">请输入股票开户账号</string>
+    <string name="text_hint_password">请输入密码</string>
+    <string name="text_hint_old_password">请输入旧密码</string>
+    <string name="text_hint_old">旧密码</string>
+    <string name="text_hint_new">新密码</string>
+    <string name="text_hint_new_password">请输入新密码</string>
+    <string name="text_hint_new_sure_password">请再次输入新密码</string>
+    <string name="text_hint_suggest">请输入您想咨询的内容</string>
+    <string name="text_hint_search">股票、标题、作者</string>
+
+    <!-- title相关 -->
+    <string name="text_user_title">个人中心</string>
+    <string name="text_main_title">四川大决策</string>
+    <string name="text_product_title">已购产品</string>
+    <string name="text_suggest_title">我的建议</string>
+    <string name="text_password_title">修改密码</string>
+    <string name="text_about_us_title">关于我们</string>
+
+    <string name="loading_text">加载中&#8230;</string>
+    <string name="no_network">请检查网络后点击重新加载</string>
+    <string name="data_error">数据获取失败(ㄒoㄒ)~~</string>
+    <string name="empty_view_hint">暂时木有内容呀~~</string>
+
+</resources>

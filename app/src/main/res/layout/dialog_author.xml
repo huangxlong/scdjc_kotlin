@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/layout_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_author"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/banner_def" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_photo"
+            android:layout_centerHorizontal="true"
+            android:text="投资顾问：张三"
+            android:textColor="@color/text_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name"
+            android:layout_centerHorizontal="true"
+            android:text="执业编号:55548754545487"
+            android:textColor="@color/text_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_number"
+            android:layout_centerHorizontal="true"
+            android:text=" 格言：尊重趋势，相机而动，严控风险，方得盈利。
+名师介绍：
+1.知名私募操盘手导师；
+2.资深证券分析师；
+3.独创布林一技擒牛法，精确抄底逃顶；
+4.擅长系统性风险预警，准确把握概念股、题材股炒作；
+5.注重上市公司基本面分析与技术面分析的有效契合。
+大市研判：
+1.2014年7月上旬，沪港通进入倒计时，成功预测牛市开启，并推荐龙头券商中信证券；
+2.2015年6月中旬，两市缩量滞涨，沪指5200点关前止步，精确判定牛市见顶，建议投资者离场观望；
+3.2017年A股国际化进程加速，多次友情提示投资者在投资过程中注重上市公司基本面研究，价值投资将成为未来的主流趋势。
+                "
+            android:textColor="@color/text_detail_color"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_below="@id/layout_detail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:src="@drawable/popup_btn_close" />
+</RelativeLayout>

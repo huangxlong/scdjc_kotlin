@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2018最酷的生活产品有哪些？"
+        android:textColor="#222222"
+        android:textSize="17sp"
+        android:textStyle="normal" />
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="match_parent"
+        android:layout_height="182dp"
+        android:scaleType="fitXY"
+        android:layout_below="@id/tv_title"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_img"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="喜欢的话记得给颗星星，因为要集齐 100 颗才可以召唤神龙。" />
+
+    <TextView
+        android:id="@+id/tv_read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_des"
+        android:layout_marginTop="5dp"
+        android:text="阅读量：5005" />
+
+
+</RelativeLayout>

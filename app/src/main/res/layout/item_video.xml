@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="122dp"
+    android:layout_marginTop="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="@drawable/card_foreground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="16dp">
+
+        <RelativeLayout
+            android:id="@+id/layout_photo"
+            android:layout_width="123dp"
+            android:layout_height="92dp"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/iv_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/banner_def" />
+
+            <TextView
+                android:id="@+id/tv_playTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:padding="6dp"
+                android:text="00:17:45"
+                android:textColor="@color/bg_white" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/layout_photo">
+
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="1111"
+                android:textColor="#222222"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="4dp"
+                android:text="2018-05-14 15:30:25"
+                android:textColor="#999999" />
+
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_zan"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:layout_marginTop="4dp"-->
+                <!--android:layout_toRightOf="@id/tv_time"-->
+                <!--android:drawableLeft="@drawable/ic_zan"-->
+                <!--android:drawablePadding="4dp"-->
+                <!--android:text="11"-->
+                <!--android:textColor="#999" />-->
+
+
+            <TextView
+                android:id="@+id/tv_playerNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/tv_time"
+                android:layout_marginBottom="4dp"
+                android:text="播放次数："
+                android:textColor="#999999" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

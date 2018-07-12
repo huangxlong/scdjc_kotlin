@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/tv_get"
+    android:layout_alignParentTop="true"
+    android:layout_marginTop="16dp"
+    android:background="@color/bg_white"
+    android:paddingBottom="16dp">
+
+
+    <include
+        android:id="@+id/input_layout"
+        layout="@layout/input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/main_btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/input_layout"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="34dp"
+        android:layout_marginRight="34dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/selector_commit"
+        android:gravity="center"
+        android:text="@string/btn_text_login"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+</RelativeLayout>
+
+
