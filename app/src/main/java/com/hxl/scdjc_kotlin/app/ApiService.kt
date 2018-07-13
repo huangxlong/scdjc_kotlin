@@ -1,7 +1,8 @@
 package com.hxl.scdjc_kotlin.app
 
 import com.hxl.scdjc_kotlin.bean.*
-import com.hxl.scdjc_kotlin.http.response.BaseRsp
+import com.hxl.scdjc_kotlin.bean.base.RspDto
+import com.hxl.scdjc_kotlin.net.response.BaseRsp
 import retrofit2.http.*
 import io.reactivex.Observable
 
@@ -11,6 +12,13 @@ import io.reactivex.Observable
  */
 interface ApiService {
 
+    /**
+     * 获取广告页面
+     *
+     * @return
+     */
+    @POST("djc/v/index")
+     fun getAdvertising(): Observable<BaseRsp<AdvertisingBean>>
 
     /**
      * 用户登录

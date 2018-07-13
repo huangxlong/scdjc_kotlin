@@ -1,4 +1,4 @@
-package com.hxl.scdjc_kotlin.http.cookie
+package com.hxl.scdjc_kotlin.net.cookie
 
 import java.io.IOException
 import java.io.ObjectInputStream

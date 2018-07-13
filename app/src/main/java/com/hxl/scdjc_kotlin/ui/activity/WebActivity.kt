@@ -12,7 +12,7 @@ import android.webkit.WebViewClient
 import com.hxl.scdjc_kotlin.R
 import com.hxl.scdjc_kotlin.app.AppConstant
 import com.hxl.scdjc_kotlin.base.BaseActivity
-import com.hxl.scdjc_kotlin.http.cookie.CookiesManager
+import com.hxl.scdjc_kotlin.net.cookie.CookiesManager
 import kotlinx.android.synthetic.main.activity_web.*
 import kotlinx.android.synthetic.main.layout_title.*
 

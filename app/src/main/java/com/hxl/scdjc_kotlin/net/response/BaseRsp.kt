@@ -1,4 +1,4 @@
-package com.hxl.scdjc_kotlin.http.response
+package com.hxl.scdjc_kotlin.net.response
 
 /**
  * 0：成功，1：失败

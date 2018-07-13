@@ -4,8 +4,8 @@ import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.hxl.scdjc_kotlin.R
+import com.hxl.scdjc_kotlin.app.UrlConstant
 import com.hxl.scdjc_kotlin.bean.base.RspDto
-import com.hxl.scdjc_kotlin.http.RetrofitManager
 
 /**
  * Created by Administrator
@@ -25,7 +25,7 @@ class VideoBigAdapter(data: List<RspDto.Video>?, private val hasHeader: Boolean?
         helper.setText(R.id.tv_title, data.title)
                 .setText(R.id.tv_playerNum, "播放次数：" + data.playQuantity)
         Glide.with(mContext)
-                .load<Any>(RetrofitManager.baseUrl + data.thumbUpQuantity)
+                .load<Any>(UrlConstant.BASE_URL+ data.thumbUpQuantity)
                 .into(helper.getView(R.id.iv_photo))
     }
 }

@@ -1,20 +1,20 @@
 package com.hxl.scdjc_kotlin.mvp.model
 
-import com.hxl.scdjc_kotlin.bean.LoginBean
-import com.hxl.scdjc_kotlin.net.response.ResponseTransformer
+import com.hxl.scdjc_kotlin.bean.AdvertisingBean
 import com.hxl.scdjc_kotlin.net.RetrofitManager
+import com.hxl.scdjc_kotlin.net.response.ResponseTransformer
 import com.hxl.scdjc_kotlin.util.RxUtil
 import io.reactivex.Observable
 
 /**
  * Created by Administrator
- * on 2018/7/12 星期四.
+ * on 2018/7/13 星期五.
  */
-class LoginModel {
+class SplashModel {
 
-    fun login(userName: String, password: String): Observable<LoginBean>? {
+    fun getAdvertising(): Observable<AdvertisingBean> {
         return RetrofitManager.service
-                .login(userName, password)
+                .getAdvertising()
                 .compose(ResponseTransformer.handleResult())
                 .compose(RxUtil.rxSchedulerHelper())
     }

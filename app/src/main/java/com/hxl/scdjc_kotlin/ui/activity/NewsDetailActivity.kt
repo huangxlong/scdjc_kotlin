@@ -1,6 +1,5 @@
 package com.hxl.scdjc_kotlin.ui.activity
 
-
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
@@ -12,16 +11,15 @@ import com.bumptech.glide.Glide
 import com.hazz.kotlinmvp.net.exception.ErrorStatus
 import com.hxl.scdjc_kotlin.R
 import com.hxl.scdjc_kotlin.app.AppConstant
+import com.hxl.scdjc_kotlin.app.UrlConstant
 import com.hxl.scdjc_kotlin.base.BaseActivity
 import com.hxl.scdjc_kotlin.bean.ArticleDetailBean
-import com.hxl.scdjc_kotlin.http.RetrofitManager
-import com.hxl.scdjc_kotlin.http.cookie.CookiesManager
+import com.hxl.scdjc_kotlin.net.cookie.CookiesManager
 import com.hxl.scdjc_kotlin.mvp.contract.NewsDetailContract
 import com.hxl.scdjc_kotlin.mvp.presenter.NewsDetailPresenter
 import com.hxl.scdjc_kotlin.util.ToastUtil
 import com.hxl.scdjc_kotlin.view.PreviewImageDialog
 import kotlinx.android.synthetic.main.activity_news_detail.*
-
 
 /**
  * Created by Administrator
@@ -76,7 +74,7 @@ class NewsDetailActivity : BaseActivity(), NewsDetailContract.View, View.OnClick
         detail = articleDetailBean
         val article = articleDetailBean.article
         Glide.with(this@NewsDetailActivity)
-                .load(RetrofitManager.baseUrl + article.employee.headImg)
+                .load(UrlConstant.BASE_URL+ article.employee.headImg)
                 .into(iv_photo)
         tv_author.text = "投资顾问:" + article.employee.realName
         tv_number.text = "(执业号:" + article.employee.practiceNum + ")"
@@ -88,13 +86,13 @@ class NewsDetailActivity : BaseActivity(), NewsDetailContract.View, View.OnClick
         tv_time.text = article.createTimeStr
         tv_from.text = "来源:" + article.source
 
-        val url = RetrofitManager.baseUrl + "djc/article/v/jsp?id=" + articleId
+        val url = UrlConstant.BASE_URL+ "djc/article/v/jsp?id=" + articleId
         CookiesManager.syncCookieToWebView(this@NewsDetailActivity, url)
         webView.loadUrl(url)
 
         if (articleDetailBean.upArticle == null) tv_up.visibility = View.GONE else tv_up.text = "上一篇:" + articleDetailBean.upArticle!!.title
         if (articleDetailBean.nextArticle == null) tv_next.visibility = View.GONE else tv_next.text = "下一篇:" + articleDetailBean.nextArticle!!.title
-        if (articleDetailBean.advertising == null) iv_advertising.visibility = View.GONE else Glide.with(this@NewsDetailActivity).load(RetrofitManager.baseUrl + articleDetailBean.advertising!!.imgPath).into(iv_advertising)
+        if (articleDetailBean.advertising == null) iv_advertising.visibility = View.GONE else Glide.with(this@NewsDetailActivity).load(UrlConstant.BASE_URL + articleDetailBean.advertising!!.imgPath).into(iv_advertising)
     }
 
     override fun thumpUpResult(result: String) {

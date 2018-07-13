@@ -9,8 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.hxl.scdjc_kotlin.R
+import com.hxl.scdjc_kotlin.app.UrlConstant
 import com.hxl.scdjc_kotlin.bean.base.RspDto
-import com.hxl.scdjc_kotlin.http.RetrofitManager
 
 /**
  * Created by Administrator
@@ -30,7 +30,7 @@ class ColumnAdapter(context: Context, children: List<RspDto.Column>) : RecyclerV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvName.text = mChildren[position].name
-        Glide.with(mContext).load(RetrofitManager.baseUrl + mChildren[position].imgPath).into(holder.ivPhoto)
+        Glide.with(mContext).load(UrlConstant.BASE_URL+ mChildren[position].imgPath).into(holder.ivPhoto)
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener {
                 mOnItemClickListener!!.onItemClick(holder.itemView, holder.layoutPosition)

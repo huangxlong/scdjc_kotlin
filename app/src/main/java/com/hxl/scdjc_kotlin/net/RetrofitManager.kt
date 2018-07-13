@@ -1,9 +1,10 @@
-package com.hxl.scdjc_kotlin.http
+package com.hxl.scdjc_kotlin.net
 
 import android.util.Log
 import com.google.gson.Gson
 import com.hxl.scdjc_kotlin.app.ApiService
-import com.hxl.scdjc_kotlin.http.cookie.CookiesManager
+import com.hxl.scdjc_kotlin.app.UrlConstant
+import com.hxl.scdjc_kotlin.net.cookie.CookiesManager
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,14 +18,13 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitManager {
     private const val timeout: Long = 30
-    const val baseUrl = "http://pro.djc888.com/"
     private var okHttpClient: OkHttpClient? = null
     private var retrofit: Retrofit? = null
 
     val service: ApiService by lazy { getHttp()!!.create(ApiService::class.java) }
 
     private fun getHttp(): Retrofit? {
-        if (okHttpClient == null) {
+        if (retrofit == null) {
             synchronized(RetrofitManager::class.java) {
                 if (retrofit == null) {
                     val httpLoggingInterceptor = HttpLoggingInterceptor() {
@@ -42,10 +42,10 @@ object RetrofitManager {
                 }
 
                 retrofit = Retrofit.Builder()
-                        .baseUrl(baseUrl)
+                        .baseUrl(UrlConstant.BASE_URL)
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(Gson()))
-                        .client(okHttpClient)
+                        .client(okHttpClient!!)
                         .build()
             }
         }

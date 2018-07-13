@@ -5,10 +5,10 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.hxl.scdjc_kotlin.R
 import com.hxl.scdjc_kotlin.app.AppConstant
+import com.hxl.scdjc_kotlin.app.UrlConstant
 import com.hxl.scdjc_kotlin.base.BaseActivity
 import com.hxl.scdjc_kotlin.bean.LoginBean
-import com.hxl.scdjc_kotlin.http.RetrofitManager
-import com.hxl.scdjc_kotlin.ui.fragment.HomeFragmentMvp
+import com.hxl.scdjc_kotlin.ui.fragment.HomeFragment
 import kotlinx.android.synthetic.main.activity_main_tab.*
 
 /**
@@ -16,12 +16,10 @@ import kotlinx.android.synthetic.main.activity_main_tab.*
  * on 2018/7/4 星期三.
  */
 class MainTabActivity : View.OnClickListener, BaseActivity() {
-    override fun loadData() {
 
-    }
 
-    lateinit var loginBean: LoginBean
-    var mContent: Fragment? = null
+    private lateinit var loginBean: LoginBean
+    private var mContent: Fragment? = null
 
     override fun getLayout(): Int {
         return R.layout.activity_main_tab
@@ -37,10 +35,13 @@ class MainTabActivity : View.OnClickListener, BaseActivity() {
         setTabResource(0)
 
         val mFragment = mutableListOf<Fragment>()
-//        mFragment.add(HomeFragment().newInstance())
-        mFragment.add(HomeFragmentMvp.getInstance(loginBean.columnList[0]))
+        mFragment.add(HomeFragment.getInstance(loginBean.columnList[0]))
         switchContent(null, mFragment[0])
     }
+
+    override fun loadData() {
+    }
+
 
     private fun setTabResource(selectIndex: Int) {
         val columnList = loginBean.columnList
@@ -53,43 +54,43 @@ class MainTabActivity : View.OnClickListener, BaseActivity() {
         tv_me.text = columnList[4].name
         tv_me.setTextColor(resources.getColor(R.color.main_tab_normal))
         Glide.with(this@MainTabActivity)
-                .load(RetrofitManager.baseUrl + columnList[0].imgPath)
+                .load(UrlConstant.BASE_URL + columnList[0].imgPath)
                 .into(iv_lianjin)
         Glide.with(this@MainTabActivity)
-                .load(RetrofitManager.baseUrl + columnList[1].imgPath)
+                .load(UrlConstant.BASE_URL + columnList[1].imgPath)
                 .into(iv_cangjin)
         Glide.with(this@MainTabActivity)
-                .load(RetrofitManager.baseUrl + columnList[2].imgPath)
+                .load(UrlConstant.BASE_URL + columnList[2].imgPath)
                 .into(iv_logo)
         Glide.with(this@MainTabActivity)
-                .load(RetrofitManager.baseUrl + columnList[3].imgPath)
+                .load(UrlConstant.BASE_URL + columnList[3].imgPath)
                 .into(iv_juejin)
         Glide.with(this@MainTabActivity)
-                .load(RetrofitManager.baseUrl + columnList[4].imgPath)
+                .load(UrlConstant.BASE_URL + columnList[4].imgPath)
                 .into(iv_me)
         when (selectIndex) {
             0 -> {
                 tv_lianjin.setTextColor(resources.getColor(R.color.main_tab_act))
                 Glide.with(this@MainTabActivity)
-                        .load(RetrofitManager.baseUrl + columnList[0].checkImgPath)
+                        .load(UrlConstant.BASE_URL + columnList[0].checkImgPath)
                         .into(iv_lianjin)
             }
             1 -> {
                 tv_cangjin.setTextColor(resources.getColor(R.color.main_tab_act))
                 Glide.with(this@MainTabActivity)
-                        .load(RetrofitManager.baseUrl + columnList[1].checkImgPath)
+                        .load(UrlConstant.BASE_URL + columnList[1].checkImgPath)
                         .into(iv_cangjin)
             }
             3 -> {
                 tv_juejin.setTextColor(resources.getColor(R.color.main_tab_act))
                 Glide.with(this@MainTabActivity)
-                        .load(RetrofitManager.baseUrl + columnList[3].checkImgPath)
+                        .load(UrlConstant.BASE_URL + columnList[3].checkImgPath)
                         .into(iv_juejin)
             }
             4 -> {
                 tv_me.setTextColor(resources.getColor(R.color.main_tab_act))
                 Glide.with(this@MainTabActivity)
-                        .load(RetrofitManager.baseUrl + columnList[4].checkImgPath)
+                        .load(UrlConstant.BASE_URL + columnList[4].checkImgPath)
                         .into(iv_me)
             }
         }
@@ -101,7 +102,7 @@ class MainTabActivity : View.OnClickListener, BaseActivity() {
      * @param from 当前fragment
      * @param to   切换fragment
      */
-    fun switchContent(from: Fragment?, to: Fragment) {
+    private fun switchContent(from: Fragment?, to: Fragment) {
         if (mContent == null || mContent !== to) {
             val transaction = supportFragmentManager.beginTransaction()
             if (mContent != null) {

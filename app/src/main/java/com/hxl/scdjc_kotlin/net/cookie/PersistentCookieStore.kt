@@ -1,4 +1,4 @@
-package com.hxl.scdjc_kotlin.http.cookie
+package com.hxl.scdjc_kotlin.net.cookie
 
 import android.content.SharedPreferences
 import android.text.TextUtils

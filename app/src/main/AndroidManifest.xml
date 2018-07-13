@@ -15,19 +15,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.hxl.scdjc_kotlin.ui.activity.LoginActivity">
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:theme="@style/AppSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.hxl.scdjc_kotlin.ui.activity.MainTabActivity" />
+        <activity android:name=".ui.activity.LoginActivity" />
+        <activity android:name=".ui.activity.MainTabActivity" />
         <activity android:name=".ui.activity.BigImageActivity" />
         <activity android:name=".ui.activity.NewsDetailActivity" />
         <activity android:name=".ui.activity.VideoActivity" />
         <activity android:name=".ui.activity.NewsListActivity" />
         <activity android:name=".ui.activity.WebActivity" />
+
     </application>
 
 </manifest>

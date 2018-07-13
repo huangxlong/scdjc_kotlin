@@ -1,28 +1,7 @@
 package com.hxl.scdjc_kotlin.ui.activity
 
-import android.content.Intent
-import android.support.v7.widget.LinearLayoutManager
-import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.TextView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hxl.scdjc_kotlin.R
-import com.hxl.scdjc_kotlin.app.AppConstant
 import com.hxl.scdjc_kotlin.base.BaseActivity
-import com.hxl.scdjc_kotlin.bean.ArticleBean
-import com.hxl.scdjc_kotlin.bean.VideoBean
-import com.hxl.scdjc_kotlin.bean.base.RspDto
-import com.hxl.scdjc_kotlin.http.BaseSubscribe
-import com.hxl.scdjc_kotlin.http.RetrofitManager
-import com.hxl.scdjc_kotlin.ui.adapter.*
-import com.hxl.scdjc_kotlin.util.CommonUtil
-import com.hxl.scdjc_kotlin.util.RxUtil
-import com.hxl.scdjc_kotlin.util.ToastUtil
-import com.hxl.scdjc_kotlin.view.ACache
-import com.hxl.scdjc_kotlin.view.LoadingView
-import kotlinx.android.synthetic.main.activity_news_list.*
-import kotlinx.android.synthetic.main.layout_title.*
 
 ///**
 // * Created by Administrator

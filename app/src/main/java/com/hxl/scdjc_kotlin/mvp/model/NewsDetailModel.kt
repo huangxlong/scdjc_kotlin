@@ -1,8 +1,8 @@
 package com.hxl.scdjc_kotlin.mvp.model
 
 import com.hxl.scdjc_kotlin.bean.ArticleDetailBean
-import com.hxl.scdjc_kotlin.http.RetrofitManager
-import com.hxl.scdjc_kotlin.http.response.ResponseTransformer
+import com.hxl.scdjc_kotlin.net.RetrofitManager
+import com.hxl.scdjc_kotlin.net.response.ResponseTransformer
 import com.hxl.scdjc_kotlin.util.RxUtil
 import io.reactivex.Observable
 

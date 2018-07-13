@@ -11,8 +11,8 @@ import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.hxl.scdjc_kotlin.R
+import com.hxl.scdjc_kotlin.app.UrlConstant
 import com.hxl.scdjc_kotlin.bean.base.RspDto
-import com.hxl.scdjc_kotlin.http.RetrofitManager
 import com.hxl.scdjc_kotlin.ui.activity.BigImageActivity
 import com.hxl.scdjc_kotlin.util.CommonUtil
 import com.xiao.nicevideoplayer.NiceVideoPlayer
@@ -33,7 +33,7 @@ class NewsTimeAdapter(data: List<RspDto.Article>?, private val hasHeader: Boolea
 
         val data = data[position]
         Glide.with(mContext)
-                .load<Any>(RetrofitManager.baseUrl + data.employee.headImg)
+                .load<Any>(UrlConstant.BASE_URL + data.employee.headImg)
                 .into(helper.getView(R.id.iv_photo))
         val str = "<font color=\"#ca0000\">" + data.title + "  " + "</font>" + data.articleIntro
         helper.setText(R.id.tv_time, data.createTimeStr)
@@ -48,12 +48,12 @@ class NewsTimeAdapter(data: List<RspDto.Article>?, private val hasHeader: Boolea
             helper.setVisible(R.id.niceVideoPlayer, true)
             val player = helper.getView<NiceVideoPlayer>(R.id.niceVideoPlayer)
             player.setPlayerType(NiceVideoPlayer.TYPE_IJK)
-            player.setUp(RetrofitManager.baseUrl + data.videoPath, null)
+            player.setUp(UrlConstant.BASE_URL+ data.videoPath, null)
             val controller = TxVideoPlayerController(mContext)
             controller.setTitle("")    //标题
             controller.setLenght(data.videoDuration) //播放时间
             Glide.with(mContext)
-                    .load<Any>(RetrofitManager.baseUrl + data.thumbnailPath)
+                    .load<Any>(UrlConstant.BASE_URL+ data.thumbnailPath)
                     .crossFade()
                     .into(controller.imageView())
             player.setController(controller)

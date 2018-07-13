@@ -1,6 +1,5 @@
 package com.hxl.scdjc_kotlin.ui.adapter
 
-import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -9,9 +8,9 @@ import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.hxl.scdjc_kotlin.R
-import com.hxl.scdjc_kotlin.app.AppConstant
+import com.hxl.scdjc_kotlin.app.UrlConstant
 import com.hxl.scdjc_kotlin.bean.base.RspDto
-import com.hxl.scdjc_kotlin.http.RetrofitManager
+
 //import com.hxl.scdjc_kotlin.ui.activity.NewsDetailActivity
 
 /**
@@ -34,7 +33,7 @@ class NewsColumnAdapter(data: List<RspDto.Article>?, private val hasHeader: Bool
                 .setText(R.id.tv_zan, "" + data.thumbUpQuantity)
                 .setText(R.id.tv_read, "" + data.readingQuantity)
         Glide.with(mContext)
-                .load(RetrofitManager.baseUrl + data.titleImg)
+                .load(UrlConstant.BASE_URL+ data.titleImg)
                 .into(helper.getView(R.id.iv_img))
 
         val childrenList = data.children

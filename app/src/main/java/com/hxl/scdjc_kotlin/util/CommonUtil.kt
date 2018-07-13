@@ -8,7 +8,7 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import com.hxl.scdjc_kotlin.R
-import com.hxl.scdjc_kotlin.http.RetrofitManager
+import com.hxl.scdjc_kotlin.app.UrlConstant
 import org.jsoup.Jsoup
 
 
@@ -80,7 +80,7 @@ object CommonUtil {
         val document = Jsoup.parse(html)
         val imgs = document.getElementsByTag("img")//取得所有Img标签的值
         for (element in imgs) {
-            val tempSelected = RetrofitManager.baseUrl + element.attr("src")
+            val tempSelected = UrlConstant.BASE_URL + element.attr("src")
             if ("" == str) {
                 str = tempSelected
             } else {

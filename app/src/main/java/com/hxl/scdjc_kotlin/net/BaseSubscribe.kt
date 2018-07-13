@@ -1,6 +1,6 @@
-package com.hxl.scdjc_kotlin.http
+package com.hxl.scdjc_kotlin.net
 
-import com.hxl.scdjc_kotlin.http.response.BaseRsp
+import com.hxl.scdjc_kotlin.net.response.BaseRsp
 import org.reactivestreams.Subscriber
 
 /**

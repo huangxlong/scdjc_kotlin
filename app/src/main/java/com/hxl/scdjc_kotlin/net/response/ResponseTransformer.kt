@@ -1,4 +1,4 @@
-package com.hxl.scdjc_kotlin.http.response
+package com.hxl.scdjc_kotlin.net.response
 
 import com.hazz.kotlinmvp.net.exception.ApiException
 import com.hazz.kotlinmvp.net.exception.ErrorStatus
