@@ -14,7 +14,7 @@ class SplashPresenter : BasePresenter<SplashContract.View>(), SplashContract.Pre
 
     override fun getAdvertising() {
         checkViewAttached()
-        splashModel.getAdvertising()
+        val disposable = splashModel.getAdvertising()
                 .subscribe(
                         { advertising ->
                             mRootView?.apply {
@@ -25,8 +25,8 @@ class SplashPresenter : BasePresenter<SplashContract.View>(), SplashContract.Pre
                             mRootView?.apply {
                                 showError(ExceptionHandle.errorMsg, ExceptionHandle.errorCode)
                             }
-
                         }
                 )
+        addSubscription(disposable)
     }
 }

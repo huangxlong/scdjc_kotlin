@@ -1,295 +1,216 @@
 package com.hxl.scdjc_kotlin.ui.activity
 
+import android.content.Intent
+import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.hazz.kotlinmvp.net.exception.ErrorStatus
 import com.hxl.scdjc_kotlin.R
+import com.hxl.scdjc_kotlin.app.AppConstant
 import com.hxl.scdjc_kotlin.base.BaseActivity
+import com.hxl.scdjc_kotlin.bean.ArticleBean
+import com.hxl.scdjc_kotlin.bean.VideoBean
+import com.hxl.scdjc_kotlin.bean.base.RspDto
+import com.hxl.scdjc_kotlin.mvp.contract.HomeContract
+import com.hxl.scdjc_kotlin.mvp.presenter.HomePresenter
+import com.hxl.scdjc_kotlin.ui.adapter.*
+import com.hxl.scdjc_kotlin.util.CommonUtil
+import com.hxl.scdjc_kotlin.util.ToastUtil
+import com.hxl.scdjc_kotlin.view.ACache
+import com.hxl.scdjc_kotlin.view.MyLoadMoreView
+import kotlinx.android.synthetic.main.activity_news_list.*
+import kotlinx.android.synthetic.main.layout_title.*
 
 ///**
 // * Created by Administrator
 // * on 2018/7/9 星期一.
 // */
-class NewsListActivity : BaseActivity() {
-    override fun loadData() {
-    }
-
-    //    private var videoList = mutableListOf<RspDto.Video>()
-//    private var newsList = mutableListOf<RspDto.Article>()
-//    private var newsAdapter: NewsAdapter? = null
-//    private var newsColumnAdapter: NewsColumnAdapter? = null
-//    private var videoBigAdapter: VideoBigAdapter? = null
-//    private var videoSmallAdapter: VideoSmallAdapter? = null
-//    private var newsTimeAdapter: NewsTimeAdapter? = null
-//    private var newsTextAdapter: NewsTextAdapter? = null
-//    private var tvTime: TextView? = null
-//    private var aCache: ACache? = null
-//    private lateinit var type: String
-//    private var columnId: Int = 0
-//    private var currentPage = 1
-//
+class NewsListActivity : BaseActivity(), HomeContract.View {
+    private val mPresenter by lazy { HomePresenter() }
+    private var videoList = mutableListOf<RspDto.Video>()
+    private var newsList = mutableListOf<RspDto.Article>()
+    private var adapter: BaseQuickAdapter<*, *>? = null
+    private val newsCustomAdapter: NewsAdapter by lazy { NewsAdapter(R.layout.item_news_custom, newsList, false) }
+    private val newsBigAdapter: NewsAdapter by lazy { NewsAdapter(R.layout.item_news_big, newsList, false) }
+    private val newsColumnAdapter by lazy { NewsColumnAdapter(newsList, false) }
+    private val videoBigAdapter: VideoBigAdapter by lazy { VideoBigAdapter(videoList, false) }
+    private val videoSmallAdapter: VideoSmallAdapter by lazy { VideoSmallAdapter(videoList, false) }
+    private val newsTimeAdapter: NewsTimeAdapter by lazy { NewsTimeAdapter(newsList, false) }
+    private val newsTextAdapter: NewsTextAdapter by lazy { NewsTextAdapter(newsList) }
+    private val layoutManager by lazy { LinearLayoutManager(this@NewsListActivity, LinearLayoutManager.VERTICAL, false) }
+    private var tvTime: TextView? = null
+    private var aCache: ACache? = null
+    private lateinit var name: String
+    private var columnId: Int = 0
+    private var currentPage = 1
+    private var isLoadMore: Boolean = false
+    private var isRefresh: Boolean = false
+    //
     override fun getLayout(): Int = R.layout.activity_news_list
 
     override fun initView() {
-//        aCache = ACache.get(this@NewsListActivity)
-//        iv_back.visibility = View.VISIBLE
-//        type = intent.extras.getString(AppConstant.TYPE)
-//        columnId = intent.extras.getInt(AppConstant.COLUMN_ID)
-//        val title = intent.extras.getString(AppConstant.COLUMN_TITLE)
-//        tv_title.text = title
-//        initRecycler()
-//        getDataFromType()
-//        swipeRefresh.setOnRefreshListener { refresh() }
+        mPresenter.attachView(this)
+        aCache = ACache.get(this@NewsListActivity)
+        mLayoutStatusView = multipleStatusView
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary)
+        iv_back.visibility = View.VISIBLE
+        name = intent.extras.getString(AppConstant.TYPE)
+        columnId = intent.extras.getInt(AppConstant.COLUMN_ID)
+        val title = intent.extras.getString(AppConstant.COLUMN_TITLE)
+        tv_title.text = title
+        initRecycler()
+        iv_back.setOnClickListener { onBackPressed() }
+        swipeRefresh.setOnRefreshListener {
+            currentPage = 1
+            adapter!!.setEnableLoadMore(true)
+            isRefresh = true
+            loadData()
+        }
     }
-//
-//    private fun refresh() {
-//        val adapter = recycler.adapter as BaseQuickAdapter<*, *>? ?: return
-//        adapter.setEnableLoadMore(true)
-//        currentPage = 1
-//        if (type == AppConstant.TYPE_VIDEO_BIG || type == AppConstant.TYPE_VIDEO_SMALL) {
-//            RetrofitManager.service
-//                    .getVideoList(columnId, currentPage, AppConstant.PAGE_SIZE)
-//                    .compose(RxUtil.rxSchedulerHelper())
-//                    .subscribe(object : BaseSubscribe<VideoBean>() {
-//                        override fun onSuccess(t: VideoBean?) {
-//                            swipeRefresh.isRefreshing = false
-//                            aCache!!.put("video_list$columnId", t, ACache.TIME_HOUR)
-//                            videoList.clear()
-//                            videoList.addAll(t!!.videoList!!)
-//                            notifyRecycler()
-//                        }
-//
-//                        override fun onFail(errMsg: String?) {
-//                            swipeRefresh.isRefreshing = false
-//                            ToastUtil.show(this@NewsListActivity, errMsg!!)
-//                        }
-//                    })
-//        } else {
-//            RetrofitManager.service
-//                    .getArticleList(columnId, currentPage, AppConstant.PAGE_SIZE)
-//                    .compose(RxUtil.rxSchedulerHelper())
-//                    .subscribe(object : BaseSubscribe<ArticleBean>() {
-//                        override fun onSuccess(t: ArticleBean?) {
-//                            swipeRefresh.isRefreshing = false
-//                            aCache!!.put("news_list$columnId", t, ACache.TIME_HOUR)
-//                            newsList.clear()
-//                            newsList.addAll(t!!.articleList!!)
-//                            notifyRecycler()
-//                        }
-//
-//                        override fun onFail(errMsg: String?) {
-//                            swipeRefresh.isRefreshing = false
-//                            ToastUtil.show(this@NewsListActivity, errMsg!!)
-//                        }
-//                    })
-//        }
-//    }
-//
-//    private fun getDataFromType() {
-//        if (type == AppConstant.TYPE_VIDEO_BIG || type == AppConstant.TYPE_VIDEO_SMALL) {
-//            //获取视频列表
-//            val videoBean = aCache!!.getAsObject("video_list$columnId") as VideoBean?
-//            if (videoBean == null) {
-//                RetrofitManager.service
-//                        .getVideoList(columnId, currentPage, AppConstant.PAGE_SIZE)
-//                        .compose(RxUtil.rxSchedulerHelper())
-//                        .subscribe(object : BaseSubscribe<VideoBean>() {
-//                            override fun onSuccess(t: VideoBean?) {
-//                                loadingView.setStatus(LoadingView.STATUS_DONE)
-//                                recycler.visibility = View.VISIBLE
-//                                aCache!!.put("video_list$columnId", t, ACache.TIME_HOUR)
-//                                videoList.addAll(t!!.videoList!!)
-//                                notifyRecycler()
-//                            }
-//
-//                            override fun onFail(errMsg: String?) {
-//                                loadingView.setStatus(LoadingView.STATUS_ERROR)
-//                                ToastUtil.show(this@NewsListActivity, errMsg!!)
-//                            }
-//                        })
-//            } else {
-//                loadingView.setStatus(LoadingView.STATUS_DONE)
-//                recycler.visibility = View.VISIBLE
-//                videoList.addAll(videoBean.videoList!!)
-//                notifyRecycler()
-//            }
-//        } else {
-//            //获取文章列表
-//            val articleBean = aCache!!.getAsObject("news_list$columnId") as ArticleBean?
-//            if (articleBean == null) {
-//                RetrofitManager.service
-//                        .getArticleList(columnId, currentPage, AppConstant.PAGE_SIZE)
-//                        .compose(RxUtil.rxSchedulerHelper())
-//                        .subscribe(object : BaseSubscribe<ArticleBean>() {
-//                            override fun onSuccess(t: ArticleBean?) {
-//                                loadingView.setStatus(LoadingView.STATUS_DONE)
-//                                recycler.visibility = View.VISIBLE
-//                                aCache!!.put("news_list$columnId", t, ACache.TIME_HOUR)
-//                                newsList.addAll(t!!.articleList!!)
-//                                notifyRecycler()
-//                            }
-//
-//                            override fun onFail(errMsg: String?) {
-//                                loadingView.setStatus(LoadingView.STATUS_ERROR)
-//                                ToastUtil.show(this@NewsListActivity, errMsg!!)
-//                            }
-//
-//                        })
-//            } else {
-//                loadingView.setStatus(LoadingView.STATUS_DONE)
-//                recycler.visibility = View.VISIBLE
-//                newsList.addAll(articleBean.articleList!!)
-//                notifyRecycler()
-//            }
-//        }
-//
-//    }
-//
-//    private fun notifyRecycler() {
-//        when (type) {
-//            AppConstant.TYPE_VIDEO_SMALL -> {
-//                videoSmallAdapter!!.setNewData(videoList)
-//                videoSmallAdapter!!.notifyDataSetChanged()
-//            }
-//            AppConstant.TYPE_VIDEO_BIG -> {
-//                videoBigAdapter!!.setNewData(videoList)
-//                videoBigAdapter!!.notifyDataSetChanged()
-//            }
-//            AppConstant.TYPE_IMG_BIG -> {
-//                newsAdapter!!.setNewData(newsList)
-//                newsAdapter!!.notifyDataSetChanged()
-//            }
-//            AppConstant.TYPE_IMG_MEDIUM -> {
-//                newsAdapter!!.setNewData(newsList)
-//                newsAdapter!!.notifyDataSetChanged()
-//            }
-//            AppConstant.TYPE_IMG_SMALL -> {
-//                newsColumnAdapter!!.setNewData(newsList)
-//                newsColumnAdapter!!.notifyDataSetChanged()
-//            }
-//            AppConstant.TYPE_TEXT -> {
-//                tvTime!!.text = CommonUtil.getSystemTimeAndWeek()
-//                newsTextAdapter!!.setNewData(newsList)
-//                newsTextAdapter!!.notifyDataSetChanged()
-//            }
-//            AppConstant.TYPE_TIME -> {
-//                newsTimeAdapter!!.setNewData(newsList)
-//                newsTimeAdapter!!.notifyDataSetChanged()
-//            }
-//        }
-//    }
-//
-//    private fun initRecycler() {
-//        val layoutManager = LinearLayoutManager(this@NewsListActivity)
-//        layoutManager.orientation = LinearLayoutManager.VERTICAL
-//        recycler.layoutManager = layoutManager
-//
-//        when (type) {
-//            AppConstant.TYPE_IMG_SMALL -> {
-//                newsColumnAdapter = NewsColumnAdapter(newsList, false)
-//                recycler.adapter = newsColumnAdapter
-//            }
-//            AppConstant.TYPE_IMG_MEDIUM -> {
-//                newsAdapter = NewsAdapter(R.layout.item_news_custom, newsList, false)
-//                recycler.adapter = newsAdapter
-//            }
-//            AppConstant.TYPE_IMG_BIG -> {
-//                newsAdapter = NewsAdapter(R.layout.item_news_big, newsList, false)
-//                recycler.adapter = newsAdapter
-//            }
-//            AppConstant.TYPE_VIDEO_BIG -> {
-//                videoBigAdapter = VideoBigAdapter(videoList, false)
-//                recycler.adapter = videoBigAdapter
-//            }
-//            AppConstant.TYPE_VIDEO_SMALL -> {
-//                videoSmallAdapter = VideoSmallAdapter(videoList, false)
-//                recycler.adapter = videoSmallAdapter
-//            }
-//            AppConstant.TYPE_TEXT -> {
-//                newsTextAdapter = NewsTextAdapter(newsList)
-//                val view = LayoutInflater.from(this).inflate(R.layout.layout_text_header, null)
-//                tvTime = view.findViewById(R.id.tv_time)
-//                tvTime!!.text = CommonUtil.getSystemTimeAndWeek()
-//                newsTextAdapter!!.addHeaderView(view)
-//                recycler.adapter = newsTextAdapter
-//            }
-//            AppConstant.TYPE_TIME -> {
-//                newsTimeAdapter = NewsTimeAdapter(newsList, false)
-//                recycler.adapter = newsTimeAdapter
-//            }
-//        }
-//
-//        val adapter = recycler.adapter as BaseQuickAdapter<*, *>? ?: return
-//        adapter.setOnItemClickListener { _, view, position ->
-//            if (type == AppConstant.TYPE_TIME) return@setOnItemClickListener
-//
-//            if (type == AppConstant.TYPE_TEXT) {
-//                val tvContent = view.findViewById<TextView>(R.id.tv_content)
-//                if (tvContent.maxLines == 3) {
-//                    tvContent.maxLines = 50
-//                    tvContent.ellipsize = null
-//                } else {
-//                    tvContent.maxLines = 3
-//                    tvContent.ellipsize = TextUtils.TruncateAt.END
-//                }
-//                return@setOnItemClickListener
-//            }
-//
-//            val intent: Intent
-//            if (type.contains(AppConstant.TYPE_VIDEO)) {
-//                intent = Intent(this@NewsListActivity, VideoActivity::class.java)
-//                intent.putExtra(AppConstant.VIDEO_ID, videoList[position].id)
-//            } else {
-//                intent = Intent(this@NewsListActivity, NewsDetailActivity::class.java)
-//                intent.putExtra(AppConstant.ARTICLE_ID, newsList[position].id)
-//                intent.putExtra(AppConstant.LINK_TITLE, newsList[position].title)
-//            }
-//            startActivity(intent)
-//        }
-//
-//        adapter.setOnLoadMoreListener { loadMore(adapter) }
-//
-//    }
-//
-//    private fun loadMore(adapter: BaseQuickAdapter<*, *>) {
-//        currentPage++
-//        if (type == AppConstant.TYPE_VIDEO_SMALL || type == AppConstant.TYPE_VIDEO_BIG) {
-//            RetrofitManager.service
-//                    .getVideoList(columnId, currentPage, AppConstant.PAGE_SIZE)
-//                    .compose(RxUtil.rxSchedulerHelper())
-//                    .subscribe(object : BaseSubscribe<VideoBean>() {
-//                        override fun onSuccess(t: VideoBean?) {
-//                            if (t!!.videoList == null || t.videoList!!.isEmpty()) {
-//                                adapter.loadMoreEnd()
-//                            } else {
-//                                adapter.loadMoreComplete()
-//                                videoList.addAll(t.videoList!!)
-//                                notifyRecycler()
-//                            }
-//                        }
-//
-//                        override fun onFail(errMsg: String?) {
-//                            adapter.loadMoreFail()
-//                            ToastUtil.show(this@NewsListActivity, errMsg!!)
-//                        }
-//                    })
-//        } else {
-//            RetrofitManager.service
-//                    .getArticleList(columnId, currentPage, AppConstant.PAGE_SIZE)
-//                    .compose(RxUtil.rxSchedulerHelper())
-//                    .subscribe(object : BaseSubscribe<ArticleBean>() {
-//                        override fun onSuccess(t: ArticleBean?) {
-//                            if (t!!.articleList == null || t.articleList!!.isEmpty()) {
-//                                adapter.loadMoreEnd()
-//                            } else {
-//                                adapter.loadMoreComplete()
-//                                newsList.addAll(t.articleList!!)
-//                                notifyRecycler()
-//                            }
-//                        }
-//
-//                        override fun onFail(errMsg: String?) {
-//                            adapter.loadMoreFail()
-//                            ToastUtil.show(this@NewsListActivity, errMsg!!)
-//                        }
-//                    })
-//        }
-//    }
+
+    override fun loadData() {
+        if (name.contains(AppConstant.TYPE_VIDEO)) {
+            mPresenter.getVideoData(columnId, currentPage)
+        } else {
+            mPresenter.getArticleData(columnId, currentPage)
+        }
+    }
+
+    override fun showLoading() {
+        if (!isLoadMore && !isRefresh)
+            mLayoutStatusView?.showLoading()
+    }
+
+    override fun dismissLoading() {
+        if (isRefresh) {
+            swipeRefresh.isRefreshing = false
+        } else if (!isRefresh && !isLoadMore) {
+            mLayoutStatusView?.showContent()
+        }
+    }
+
+    override fun setArticleData(articleData: ArticleBean) {
+        if (isLoadMore) {
+            if (articleData.articleList == null || articleData.articleList!!.isEmpty()) {
+                adapter!!.loadMoreEnd()
+            } else {
+                adapter!!.loadMoreComplete()
+            }
+        }
+        if (isRefresh) {
+            newsList.clear()
+        }
+        newsList.addAll(articleData.articleList!!)
+        notifyRecycler()
+        isRefresh = false
+        isLoadMore = false
+    }
+
+    override fun setVideoData(videoData: VideoBean) {
+        if (isLoadMore) {
+            if (videoData.videoList == null || videoData.videoList!!.isEmpty()) {
+                adapter!!.loadMoreEnd()
+            } else {
+                adapter!!.loadMoreComplete()
+            }
+        }
+        if (isRefresh) {
+            newsList.clear()
+        }
+        videoList.addAll(videoData.videoList!!)
+        notifyRecycler()
+        isRefresh = false
+        isLoadMore = false
+    }
+
+    override fun showError(errorMsg: String, errorCode: Int) {
+        if (isLoadMore) {
+            isLoadMore = false
+            adapter!!.loadMoreFail()
+        }
+        if (isRefresh) {
+            isRefresh = false
+            swipeRefresh.isRefreshing = false
+        }
+        ToastUtil.show(this@NewsListActivity, errorMsg)
+        if (errorCode == ErrorStatus.NETWORK_ERROR) {
+            multipleStatusView.showNoNetwork()
+        } else {
+            multipleStatusView.showError()
+        }
+    }
+
+    private fun notifyRecycler() {
+        if (isRefresh) {
+            when (name) {
+                AppConstant.TYPE_IMG_MEDIUM -> (adapter as NewsAdapter).setNewData(newsList)
+                AppConstant.TYPE_IMG_SMALL -> (adapter as NewsColumnAdapter).setNewData(newsList)
+                AppConstant.TYPE_IMG_BIG -> (adapter as NewsAdapter).setNewData(newsList)
+                AppConstant.TYPE_TIME -> (adapter as NewsTimeAdapter).setNewData(newsList)
+                AppConstant.TYPE_VIDEO_BIG -> (adapter as VideoBigAdapter).setNewData(videoList)
+                AppConstant.TYPE_VIDEO_SMALL -> (adapter as VideoSmallAdapter).setNewData(videoList)
+                AppConstant.TYPE_TEXT -> {
+                    tvTime!!.text = CommonUtil.getSystemTimeAndWeek()
+                    (adapter as NewsTextAdapter).setNewData(newsList)
+                }
+            }
+        }
+        adapter!!.notifyDataSetChanged()
+    }
+
+    private fun initRecycler() {
+        recycler.layoutManager = layoutManager
+        when (name) {
+            AppConstant.TYPE_IMG_SMALL -> recycler.adapter = newsColumnAdapter
+            AppConstant.TYPE_IMG_MEDIUM -> recycler.adapter = newsCustomAdapter
+            AppConstant.TYPE_IMG_BIG -> recycler.adapter = newsBigAdapter
+            AppConstant.TYPE_VIDEO_BIG -> recycler.adapter = videoBigAdapter
+            AppConstant.TYPE_VIDEO_SMALL -> recycler.adapter = videoSmallAdapter
+            AppConstant.TYPE_TIME -> recycler.adapter = newsTimeAdapter
+            AppConstant.TYPE_TEXT -> {
+                val view = LayoutInflater.from(this).inflate(R.layout.layout_text_header, null)
+                tvTime = view.findViewById(R.id.tv_time)
+                tvTime!!.text = CommonUtil.getSystemTimeAndWeek()
+                newsTextAdapter.addHeaderView(view)
+                recycler.adapter = newsTextAdapter
+            }
+        }
+        adapter = recycler.adapter as BaseQuickAdapter<*, *>? ?: return
+        adapter!!.setOnItemClickListener { _, view, position ->
+            if (name == AppConstant.TYPE_TIME) return@setOnItemClickListener
+
+            if (name == AppConstant.TYPE_TEXT) {
+                val tvContent = view.findViewById<TextView>(R.id.tv_content)
+                if (tvContent.maxLines == 3) {
+                    tvContent.maxLines = 50
+                    tvContent.ellipsize = null
+                } else {
+                    tvContent.maxLines = 3
+                    tvContent.ellipsize = TextUtils.TruncateAt.END
+                }
+                return@setOnItemClickListener
+            }
+
+            val intent: Intent
+            if (name.contains(AppConstant.TYPE_VIDEO)) {
+                intent = Intent(this@NewsListActivity, VideoActivity::class.java)
+                intent.putExtra(AppConstant.VIDEO_ID, videoList[position].id)
+            } else {
+                intent = Intent(this@NewsListActivity, NewsDetailActivity::class.java)
+                intent.putExtra(AppConstant.ARTICLE_ID, newsList[position].id)
+                intent.putExtra(AppConstant.LINK_TITLE, newsList[position].title)
+            }
+            startActivity(intent)
+        }
+
+        adapter!!.setLoadMoreView(MyLoadMoreView())
+        adapter!!.setOnLoadMoreListener {
+            currentPage++
+            isLoadMore = true
+            loadData()
+        }
+    }
 }

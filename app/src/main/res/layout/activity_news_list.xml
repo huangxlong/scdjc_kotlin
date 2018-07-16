@@ -9,30 +9,24 @@
 
     <include layout="@layout/layout_title" />
 
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
+    <com.hxl.scdjc_kotlin.view.MultipleStatusView
+        android:id="@+id/multipleStatusView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:layout_height="match_parent">
 
-            <com.hxl.scdjc_kotlin.view.LoadingView
-                android:id="@+id/loadingView"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_centerInParent="true" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-        </RelativeLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </com.hxl.scdjc_kotlin.view.MultipleStatusView>
 </LinearLayout>

@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.activity_splash.*
  * on 2018/7/13 星期五.
  */
 class SplashActivity : BaseActivity(), SplashContract.View {
-
     private val mPresenter by lazy { SplashPresenter() }
     private lateinit var immersionBar: ImmersionBar
     private val timer = object : CountDownTimer(4000, 1000) {
@@ -36,7 +35,6 @@ class SplashActivity : BaseActivity(), SplashContract.View {
         }
     }
 
-
     override fun getLayout(): Int = R.layout.activity_splash
 
     override fun initView() {
@@ -48,7 +46,6 @@ class SplashActivity : BaseActivity(), SplashContract.View {
             startAct()
         }
     }
-
 
     override fun loadData() {
         mPresenter.getAdvertising()
@@ -66,13 +63,11 @@ class SplashActivity : BaseActivity(), SplashContract.View {
                 })
     }
 
-
     override fun showLoading() {
     }
 
     override fun dismissLoading() {
     }
-
 
     override fun showError(errorMsg: String, errorCode: Int) {
     }
@@ -82,11 +77,9 @@ class SplashActivity : BaseActivity(), SplashContract.View {
         finish()
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         immersionBar.destroy()
         timer.cancel()
     }
-
 }
