@@ -32,6 +32,10 @@
         <activity android:name=".ui.activity.NewsListActivity" />
         <activity android:name=".ui.activity.WebActivity" />
         <activity android:name=".ui.activity.SearchActivity" />
+        <activity android:name=".ui.activity.LogoActivity" />
+        <activity android:name=".ui.activity.SuggestActivity" />
+        <activity android:name=".ui.activity.ProductActivity" />
+        <activity android:name=".ui.activity.ResetPasswordActivity" />
 
     </application>
 

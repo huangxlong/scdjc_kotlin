@@ -1,5 +1,6 @@
 package com.hxl.scdjc_kotlin.ui.activity
 
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.view.View
 import com.bumptech.glide.Glide
@@ -9,6 +10,7 @@ import com.hxl.scdjc_kotlin.app.UrlConstant
 import com.hxl.scdjc_kotlin.base.BaseActivity
 import com.hxl.scdjc_kotlin.bean.LoginBean
 import com.hxl.scdjc_kotlin.ui.fragment.HomeFragment
+import com.hxl.scdjc_kotlin.ui.fragment.UserFragment
 import kotlinx.android.synthetic.main.activity_main_tab.*
 
 /**
@@ -17,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main_tab.*
  */
 class MainTabActivity : View.OnClickListener, BaseActivity() {
 
-
+    private var mFragment = mutableListOf<Fragment>()
     private lateinit var loginBean: LoginBean
     private var mContent: Fragment? = null
 
@@ -34,8 +36,10 @@ class MainTabActivity : View.OnClickListener, BaseActivity() {
         loginBean = intent.extras.get(AppConstant.LOGIN_RSP) as LoginBean
         setTabResource(0)
 
-        val mFragment = mutableListOf<Fragment>()
         mFragment.add(HomeFragment.getInstance(loginBean.columnList[0]))
+        mFragment.add(HomeFragment.getInstance(loginBean.columnList[0]))
+        mFragment.add(HomeFragment.getInstance(loginBean.columnList[0]))
+        mFragment.add(UserFragment.getInstance(loginBean.columnList[4].name))
         switchContent(null, mFragment[0])
     }
 
@@ -103,7 +107,7 @@ class MainTabActivity : View.OnClickListener, BaseActivity() {
      * @param to   切换fragment
      */
     private fun switchContent(from: Fragment?, to: Fragment) {
-        if (mContent == null || mContent !== to) {
+        if (mContent == null || mContent != to) {
             val transaction = supportFragmentManager.beginTransaction()
             if (mContent != null) {
                 mContent!!.onPause()
@@ -126,18 +130,18 @@ class MainTabActivity : View.OnClickListener, BaseActivity() {
         when (v!!.id) {
             R.id.layout_lianjin -> {
                 setTabResource(0)
+                switchContent(mContent, mFragment[0])
             }
             R.id.layout_cangjin -> {
                 setTabResource(1)
             }
-            R.id.layout_logo -> {
-
-            }
+            R.id.layout_logo -> startActivity(Intent(this@MainTabActivity, LogoActivity::class.java))
             R.id.layout_juejin -> {
                 setTabResource(3)
             }
             R.id.layout_me -> {
                 setTabResource(4)
+                switchContent(mContent, mFragment[3])
             }
         }
     }

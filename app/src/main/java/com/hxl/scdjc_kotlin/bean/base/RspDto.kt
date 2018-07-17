@@ -115,4 +115,5 @@ class RspDto {
                      var auditRemark: Any,
                      var auditTime: Any,
                      var state: Int) : Serializable
+
 }

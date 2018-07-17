@@ -18,7 +18,7 @@ interface ApiService {
      * @return
      */
     @POST("djc/v/index")
-     fun getAdvertising(): Observable<BaseRsp<AdvertisingBean>>
+    fun getAdvertising(): Observable<BaseRsp<AdvertisingBean>>
 
     /**
      * 用户登录
@@ -86,6 +86,28 @@ interface ApiService {
      * @return
      */
     @GET("djc/article/v/query")
-     fun search(@Query("q") searchKey: String, @Query("page") page: Int, @Query("pageSize") pageSize: Int): Observable<BaseRsp<ArticleBean>>
+    fun search(@Query("q") searchKey: String, @Query("page") page: Int, @Query("pageSize") pageSize: Int): Observable<BaseRsp<ArticleBean>>
+
+
+    /**
+     * 获取我的页面的信息
+     *
+     * @param columnName 栏目名称
+     * @return
+     */
+    @GET("djc/column/v/main/{columnName}")
+    fun getUserInfo(@Path("columnName") columnName: String): Observable<BaseRsp<UserBean>>
+
+
+    /**
+     * 修改密码
+     *
+     * @param password    旧密码
+     * @param newPassword 新密码
+     * @return
+     */
+    @POST("djc/customer/savePassword")
+    @FormUrlEncoded
+    fun resetPassword(@Field("password") password: String, @Field("newPassword") newPassword: String): Observable<BaseRsp<String>>
 
 }

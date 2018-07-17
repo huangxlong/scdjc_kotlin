@@ -35,6 +35,7 @@ class WebActivity : BaseActivity(), View.OnClickListener {
         initWebView()
         CookiesManager.syncCookieToWebView(this, articleLink)
         webView.loadUrl(articleLink)
+        iv_back.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) = onBackPressed()
@@ -74,7 +75,7 @@ class WebActivity : BaseActivity(), View.OnClickListener {
 
 
     inner class MyWebClient : WebViewClient() {
-        override fun onPageStarted(view: WebView, url: String, favicon: Bitmap) {
+        override fun onPageStarted(view: WebView?, url: String, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
         }
 
