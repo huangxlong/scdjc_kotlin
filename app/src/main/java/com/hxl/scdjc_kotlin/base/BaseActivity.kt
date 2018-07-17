@@ -1,10 +1,13 @@
 package com.hxl.scdjc_kotlin.base
 
 import android.app.Activity
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import com.hxl.scdjc_kotlin.R
 import com.hxl.scdjc_kotlin.app.App
 import com.hxl.scdjc_kotlin.view.LoadingDialog
@@ -89,6 +92,25 @@ abstract class BaseActivity : AppCompatActivity() {
         if (isDestroy()) return
         loadingDialog.dismiss()
     }
+
+
+    /**
+     * 打卡软键盘
+     */
+    fun openKeyBord(mEditText: EditText, mContext: Context) {
+        val imm = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN)
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+    }
+
+    /**
+     * 关闭软键盘
+     */
+    fun closeKeyBord(mEditText: EditText, mContext: Context) {
+        val imm = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(mEditText.windowToken, 0)
+    }
+
 
     override fun onDestroy() {
         App.removeActivity(this)

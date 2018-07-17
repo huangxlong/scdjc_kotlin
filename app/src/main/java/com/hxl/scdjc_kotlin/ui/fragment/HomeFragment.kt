@@ -20,10 +20,7 @@ import com.hxl.scdjc_kotlin.bean.VideoBean
 import com.hxl.scdjc_kotlin.bean.base.RspDto
 import com.hxl.scdjc_kotlin.mvp.contract.HomeContract
 import com.hxl.scdjc_kotlin.mvp.presenter.HomePresenter
-import com.hxl.scdjc_kotlin.ui.activity.NewsDetailActivity
-import com.hxl.scdjc_kotlin.ui.activity.NewsListActivity
-import com.hxl.scdjc_kotlin.ui.activity.VideoActivity
-import com.hxl.scdjc_kotlin.ui.activity.WebActivity
+import com.hxl.scdjc_kotlin.ui.activity.*
 import com.hxl.scdjc_kotlin.ui.adapter.*
 import com.hxl.scdjc_kotlin.util.CommonUtil
 import com.hxl.scdjc_kotlin.util.ToastUtil
@@ -81,6 +78,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         columnId = columnList!!.id
         initBannerAndColumnChild()
         initRecycler()
+        layout_search.setOnClickListener { startActivity(Intent(mContext, SearchActivity::class.java)) }
         swipeRefresh.setOnRefreshListener {
             isRefresh = true
             currentPage = 1

@@ -76,4 +76,16 @@ interface ApiService {
     @FormUrlEncoded
     fun thumbUp(@Field("id") id: Int): Observable<BaseRsp<String>>
 
+
+    /**
+     * 搜索
+     *
+     * @param searchKey 搜索关键词
+     * @param page      页数
+     * @param pageSize  每页条数
+     * @return
+     */
+    @GET("djc/article/v/query")
+     fun search(@Query("q") searchKey: String, @Query("page") page: Int, @Query("pageSize") pageSize: Int): Observable<BaseRsp<ArticleBean>>
+
 }

@@ -31,6 +31,7 @@
         <activity android:name=".ui.activity.VideoActivity" />
         <activity android:name=".ui.activity.NewsListActivity" />
         <activity android:name=".ui.activity.WebActivity" />
+        <activity android:name=".ui.activity.SearchActivity" />
 
     </application>
 
