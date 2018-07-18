@@ -5,12 +5,17 @@ import android.support.v4.app.Fragment
 import android.view.View
 import com.bumptech.glide.Glide
 import com.hxl.scdjc_kotlin.R
+import com.hxl.scdjc_kotlin.app.App
 import com.hxl.scdjc_kotlin.app.AppConstant
 import com.hxl.scdjc_kotlin.app.UrlConstant
 import com.hxl.scdjc_kotlin.base.BaseActivity
 import com.hxl.scdjc_kotlin.bean.LoginBean
+import com.hxl.scdjc_kotlin.net.cookie.CookiesManager
 import com.hxl.scdjc_kotlin.ui.fragment.HomeFragment
+import com.hxl.scdjc_kotlin.ui.fragment.SecondFragment
+import com.hxl.scdjc_kotlin.ui.fragment.ThreeFragment
 import com.hxl.scdjc_kotlin.ui.fragment.UserFragment
+import com.hxl.scdjc_kotlin.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_main_tab.*
 
 /**
@@ -37,8 +42,8 @@ class MainTabActivity : View.OnClickListener, BaseActivity() {
         setTabResource(0)
 
         mFragment.add(HomeFragment.getInstance(loginBean.columnList[0]))
-        mFragment.add(HomeFragment.getInstance(loginBean.columnList[0]))
-        mFragment.add(HomeFragment.getInstance(loginBean.columnList[0]))
+        mFragment.add(SecondFragment.getInstance(loginBean.columnList[1]))
+        mFragment.add(ThreeFragment.getInstance(loginBean.columnList[3]))
         mFragment.add(UserFragment.getInstance(loginBean.columnList[4].name))
         switchContent(null, mFragment[0])
     }
@@ -134,15 +139,30 @@ class MainTabActivity : View.OnClickListener, BaseActivity() {
             }
             R.id.layout_cangjin -> {
                 setTabResource(1)
+                switchContent(mContent, mFragment[1])
             }
             R.id.layout_logo -> startActivity(Intent(this@MainTabActivity, LogoActivity::class.java))
             R.id.layout_juejin -> {
                 setTabResource(3)
+                switchContent(mContent, mFragment[2])
             }
             R.id.layout_me -> {
                 setTabResource(4)
                 switchContent(mContent, mFragment[3])
             }
+        }
+    }
+
+
+    private var exitTime: Long = 0
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - exitTime > 2000) {
+            ToastUtil.show(this, getString(R.string.toast_exit_app))
+            exitTime = System.currentTimeMillis()
+        } else {
+            super.onBackPressed()
+            CookiesManager.clearAllCookies()
+            App.exit()
         }
     }
 

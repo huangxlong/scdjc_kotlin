@@ -48,12 +48,12 @@ class NewsTimeAdapter(data: List<RspDto.Article>?, private val hasHeader: Boolea
             helper.setVisible(R.id.niceVideoPlayer, true)
             val player = helper.getView<NiceVideoPlayer>(R.id.niceVideoPlayer)
             player.setPlayerType(NiceVideoPlayer.TYPE_IJK)
-            player.setUp(UrlConstant.BASE_URL+ data.videoPath, null)
+            player.setUp(UrlConstant.BASE_URL + data.videoPath, null)
             val controller = TxVideoPlayerController(mContext)
             controller.setTitle("")    //标题
             controller.setLenght(data.videoDuration) //播放时间
             Glide.with(mContext)
-                    .load<Any>(UrlConstant.BASE_URL+ data.thumbnailPath)
+                    .load<Any>(UrlConstant.BASE_URL + data.thumbnailPath)
                     .crossFade()
                     .into(controller.imageView())
             player.setController(controller)
@@ -64,12 +64,12 @@ class NewsTimeAdapter(data: List<RspDto.Article>?, private val hasHeader: Boolea
             recycler.isNestedScrollingEnabled = false  //禁止滑动
             val imgList = CommonUtil.getImgFromHtml(data.articleIntroDetails) ?: return
             val lineCount: Int
-            if (imgList.size == 4) {
-                lineCount = 2
+            lineCount = if (imgList.size == 4) {
+                2
             } else if (imgList.size >= 3 || imgList.isEmpty()) {
-                lineCount = 3
+                3
             } else {
-                lineCount = imgList.size
+                imgList.size
             }
             val timeImgAdapter = TimeImgAdapter(Arrays.asList<String>(*imgList))
             val layoutManager = GridLayoutManager(mContext, lineCount)

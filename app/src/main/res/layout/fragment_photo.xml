@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.djc.scdjc.view.photoview.PhotoView
+    <com.hxl.scdjc_kotlin.view.photoview.PhotoView
         android:id="@+id/iv_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
