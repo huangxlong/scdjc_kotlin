@@ -40,8 +40,8 @@ class LoginActivity : View.OnClickListener, BaseActivity(), LoginContract.View {
         immersionBar = ImmersionBar.with(this).statusBarDarkFont(true, 0.2f)
         immersionBar.init()
 
-        et_account.setText("djct1")
-        et_password.setText("111")
+        et_account.setText("djct2")
+        et_password.setText("1234")
 
         main_btn_login.setOnClickListener(this)
         iv_code.setOnClickListener(this)

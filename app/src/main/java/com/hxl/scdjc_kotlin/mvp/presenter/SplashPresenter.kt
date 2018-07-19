@@ -21,9 +21,9 @@ class SplashPresenter : BasePresenter<SplashContract.View>(), SplashContract.Pre
                                 setSplashResource(advertising)
                             }
                         },
-                        { _ ->
+                        { throwable ->
                             mRootView?.apply {
-                                showError(ExceptionHandle.errorMsg, ExceptionHandle.errorCode)
+                                showError(throwable.cause!!.message!!, ExceptionHandle.errorCode)
                             }
                         }
                 )

@@ -27,9 +27,9 @@ class NewsDetailPresenter : BasePresenter<NewsDetailContract.View>(), NewsDetail
                                 setNewsDetail(newsDetail)
                             }
                         },
-                        { _ ->
+                        { throwable ->
                             mRootView?.apply {
-                                showError(ExceptionHandle.errorMsg, ExceptionHandle.errorCode)
+                                showError(throwable.cause!!.message!!, ExceptionHandle.errorCode)
                             }
                         })
         addSubscription(disposable)
@@ -45,9 +45,9 @@ class NewsDetailPresenter : BasePresenter<NewsDetailContract.View>(), NewsDetail
                                 thumpUpResult(s)
                             }
                         },
-                        { _ ->
+                        { throwable ->
                             mRootView?.apply {
-                                showError(ExceptionHandle.errorMsg, ExceptionHandle.errorCode)
+                                showError(throwable.cause!!.message!!, ExceptionHandle.errorCode)
                             }
                         }
                 )

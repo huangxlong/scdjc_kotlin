@@ -67,15 +67,29 @@ class NewsListActivity : BaseActivity(), HomeContract.View {
             currentPage = 1
             adapter!!.setEnableLoadMore(true)
             isRefresh = true
-            loadData()
+            startLoad(true)
         }
     }
 
     override fun loadData() {
+        startLoad(false)
+    }
+
+    private fun startLoad(isRefreshOrLoadMore: Boolean) {
         if (name.contains(AppConstant.TYPE_VIDEO)) {
-            mPresenter.getVideoData(columnId, currentPage)
+            val videoData = aCache!!.getAsObject("video_list$columnId") as VideoBean?
+            if (videoData == null || isRefreshOrLoadMore) {
+                mPresenter.getVideoData(columnId, currentPage)
+            } else {
+                setVideoData(videoData, false)
+            }
         } else {
-            mPresenter.getArticleData(columnId, currentPage)
+            val articleData = aCache!!.getAsObject("news_list$columnId") as ArticleBean?
+            if (articleData == null || isRefreshOrLoadMore) {
+                mPresenter.getArticleData(columnId, currentPage)
+            } else {
+                setArticleData(articleData, false)
+            }
         }
     }
 
@@ -92,7 +106,10 @@ class NewsListActivity : BaseActivity(), HomeContract.View {
         }
     }
 
-    override fun setArticleData(articleData: ArticleBean) {
+    override fun setArticleData(articleData: ArticleBean, isNetWork: Boolean) {
+        if (isNetWork && !isLoadMore) {
+            aCache!!.put("news_list$columnId", articleData)
+        }
         if (isLoadMore) {
             if (articleData.articleList == null || articleData.articleList!!.isEmpty()) {
                 adapter!!.loadMoreEnd()
@@ -109,7 +126,10 @@ class NewsListActivity : BaseActivity(), HomeContract.View {
         isLoadMore = false
     }
 
-    override fun setVideoData(videoData: VideoBean) {
+    override fun setVideoData(videoData: VideoBean, isNetWork: Boolean) {
+        if (isNetWork && !isLoadMore) {
+            aCache!!.put("video_list$columnId", videoData)
+        }
         if (isLoadMore) {
             if (videoData.videoList == null || videoData.videoList!!.isEmpty()) {
                 adapter!!.loadMoreEnd()
@@ -210,7 +230,7 @@ class NewsListActivity : BaseActivity(), HomeContract.View {
         adapter!!.setOnLoadMoreListener {
             currentPage++
             isLoadMore = true
-            loadData()
+            startLoad(true)
         }
     }
 }

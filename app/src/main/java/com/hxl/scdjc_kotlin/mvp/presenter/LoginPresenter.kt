@@ -25,10 +25,10 @@ class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presen
                                 setLogin(loginBean)
                             }
                         },
-                        { _ ->
+                        { throwable ->
                             mRootView?.dismissLoading()
                             mRootView?.apply {
-                                showError(ExceptionHandle.errorMsg, ExceptionHandle.errorCode)
+                                showError(throwable.cause!!.message!!, ExceptionHandle.errorCode)
                             }
                         })
         addSubscription(disposable)

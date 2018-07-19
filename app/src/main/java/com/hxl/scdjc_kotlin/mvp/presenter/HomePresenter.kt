@@ -25,11 +25,11 @@ class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter
                 subscribe({ article ->
                     mRootView?.apply {
                         mRootView?.dismissLoading()
-                        setArticleData(article)
+                        setArticleData(article, true)
                     }
-                }, { _ ->
+                }, { throwable ->
                     mRootView?.apply {
-                        showError(ExceptionHandle.errorMsg, ExceptionHandle.errorCode)
+                        showError(throwable.cause!!.message!!, ExceptionHandle.errorCode)
                     }
                 })
         addSubscription(disposable!!)
@@ -45,11 +45,11 @@ class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter
                 subscribe({ video ->
                     mRootView?.apply {
                         mRootView?.dismissLoading()
-                        setVideoData(video)
+                        setVideoData(video, true)
                     }
-                }, { _ ->
+                }, { throwable ->
                     mRootView?.apply {
-                        showError(ExceptionHandle.errorMsg, ExceptionHandle.errorCode)
+                        showError(throwable.cause!!.message!!, ExceptionHandle.errorCode)
                     }
                 })
         addSubscription(disposable!!)

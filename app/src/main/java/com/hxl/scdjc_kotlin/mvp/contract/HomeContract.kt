@@ -11,9 +11,9 @@ import com.hxl.scdjc_kotlin.bean.VideoBean
  */
 interface HomeContract {
     interface View : IBaseView {
-        fun setArticleData(articleData: ArticleBean)
+        fun setArticleData(articleData: ArticleBean, isNetWork: Boolean)
 
-        fun setVideoData(videoData: VideoBean)
+        fun setVideoData(videoData: VideoBean, isNetWork: Boolean)
 
         /**
          * 显示错误信息

@@ -110,7 +110,7 @@ class NewsDetailActivity : BaseActivity(), NewsDetailContract.View, View.OnClick
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.tv_zan -> mPresenter.thumpUp(articleId)
+            R.id.iv_zan -> mPresenter.thumpUp(articleId)
             R.id.iv_back -> onBackPressed()
             R.id.tv_des -> changeDesLines(false)
             R.id.tv_next -> goUpOrNext(detail.nextArticle!!.id, detail.nextArticle!!.title)

@@ -23,7 +23,6 @@ object ResponseTransformer {
         }
     }
 
-
     /**
      * 非服务器产生的异常，比如本地无无网络请求，Json数据解析错误等等。
      *
@@ -49,12 +48,13 @@ object ResponseTransformer {
         override fun apply(tResponse: BaseRsp<T>): ObservableSource<T> {
             val code = tResponse.status
             val message = tResponse.message
-            return if (code == ErrorStatus.SUCCESS) {
+            return if (code == ErrorStatus.SUCCESS && tResponse.data != null) {
                 Observable.just(tResponse.data)
+            } else if (code == ErrorStatus.SUCCESS && tResponse.data == null) {
+                Observable.just("" as T)
             } else {
                 Observable.error(ApiException(message))
             }
         }
     }
-
 }
