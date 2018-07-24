@@ -33,7 +33,9 @@
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="8dp"
                     android:ellipsize="end"
-                    android:maxLines="2"
+                    android:maxLines="1"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:text="标题"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />

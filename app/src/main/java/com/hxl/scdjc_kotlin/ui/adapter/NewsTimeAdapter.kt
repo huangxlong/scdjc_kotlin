@@ -26,7 +26,6 @@ import java.util.Arrays
  */
 class NewsTimeAdapter(data: List<RspDto.Article>?, private val hasHeader: Boolean?) : BaseQuickAdapter<RspDto.Article, BaseViewHolder>(R.layout.item_time, data) {
 
-
     override fun convert(helper: BaseViewHolder, item: RspDto.Article) {
         helper.setIsRecyclable(false)
         val position: Int = if (hasHeader!!) helper.layoutPosition - 1 else helper.layoutPosition

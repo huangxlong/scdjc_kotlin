@@ -1,10 +1,13 @@
 package com.hxl.scdjc_kotlin.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import com.hazz.kotlinmvp.net.exception.ErrorStatus
 import com.hxl.scdjc_kotlin.R
 import com.hxl.scdjc_kotlin.app.AppConstant
@@ -54,6 +57,20 @@ class SearchActivity : BaseActivity(), SearchContract.View, View.OnClickListener
             newsCustomAdapter.setEnableLoadMore(true)
             mPresenter.search(keyWords!!, currentPage)
         }
+        et_search.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                //隐藏软键盘
+                val imm = v.context
+                        .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                if (imm.isActive) {
+                    imm.hideSoftInputFromWindow(v.applicationWindowToken, 0)
+                }
+                search()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
+
         et_search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val key = et_search.text.toString().trim()
