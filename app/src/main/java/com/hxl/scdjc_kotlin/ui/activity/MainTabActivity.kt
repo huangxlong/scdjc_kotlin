@@ -103,6 +103,18 @@ class MainTabActivity : View.OnClickListener, BaseActivity() {
                         .into(iv_me)
             }
         }
+        //设置消息是否已读
+        lianjin_has_news.visibility = if (columnList[0].isRead == 0) View.VISIBLE else View.GONE
+        cangjin_has_news.visibility = if (columnList[1].isRead == 0) View.VISIBLE else View.GONE
+        juejin_has_news.visibility = if (columnList[3].isRead == 0) View.VISIBLE else View.GONE
+    }
+
+    fun notifyIsRead(a: Int) {
+        when (a) {
+            0 -> lianjin_has_news.visibility = View.GONE
+            1 -> cangjin_has_news.visibility = View.GONE
+            3 -> juejin_has_news.visibility = View.GONE
+        }
     }
 
     /**

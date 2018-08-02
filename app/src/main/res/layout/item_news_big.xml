@@ -21,24 +21,43 @@
             android:layout_width="match_parent"
             android:layout_height="190dp">
 
-
-            <TextView
-                android:id="@+id/tv_title"
+            <LinearLayout
+                android:id="@+id/layout_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:text="标题"
-                android:textColor="@color/text_color"
-                android:textSize="18sp" />
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_has_news"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_new_bg"
+                    android:padding="3dp"
+                    android:text="今日新品"
+                    android:textColor="@color/text_white"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:text="标题"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/iv_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/tv_title"
+                android:layout_below="@id/layout_title"
                 android:layout_centerVertical="true"
                 android:scaleType="fitXY" />
 

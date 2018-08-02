@@ -30,7 +30,12 @@ class ColumnAdapter(context: Context, children: List<RspDto.Column>) : RecyclerV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvName.text = mChildren[position].name
-        Glide.with(mContext).load(UrlConstant.BASE_URL+ mChildren[position].imgPath).into(holder.ivPhoto)
+        Glide.with(mContext).load(UrlConstant.BASE_URL + mChildren[position].imgPath).into(holder.ivPhoto)
+        if (mChildren[position].isRead == 0) {
+            holder.viewHasNews.visibility = View.VISIBLE
+        } else {
+            holder.viewHasNews.visibility = View.GONE
+        }
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener {
                 mOnItemClickListener!!.onItemClick(holder.itemView, holder.layoutPosition)
@@ -42,6 +47,7 @@ class ColumnAdapter(context: Context, children: List<RspDto.Column>) : RecyclerV
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivPhoto = itemView.findViewById<ImageView>(R.id.iv_photo)!!
         val tvName = itemView.findViewById<TextView>(R.id.tv_name)!!
+        val viewHasNews = itemView.findViewById<View>(R.id.view_has_news)
     }
 
     interface OnItemClickListener {

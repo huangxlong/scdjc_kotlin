@@ -34,7 +34,7 @@ class NewsListActivity : BaseActivity(), HomeContract.View {
     private var newsList = mutableListOf<RspDto.Article>()
     private var adapter: BaseQuickAdapter<*, *>? = null
     private val newsCustomAdapter: NewsAdapter by lazy { NewsAdapter(R.layout.item_news_custom, newsList, false) }
-    private val newsBigAdapter: NewsAdapter by lazy { NewsAdapter(R.layout.item_news_big, newsList, false) }
+    private val newsBigAdapter: NewsBigAdapter by lazy { NewsBigAdapter(newsList, false) }
     private val newsColumnAdapter by lazy { NewsColumnAdapter(newsList, false) }
     private val videoBigAdapter: VideoBigAdapter by lazy { VideoBigAdapter(videoList, false) }
     private val videoSmallAdapter: VideoSmallAdapter by lazy { VideoSmallAdapter(videoList, false) }
@@ -168,7 +168,7 @@ class NewsListActivity : BaseActivity(), HomeContract.View {
             when (name) {
                 AppConstant.TYPE_IMG_MEDIUM -> (adapter as NewsAdapter).setNewData(newsList)
                 AppConstant.TYPE_IMG_SMALL -> (adapter as NewsColumnAdapter).setNewData(newsList)
-                AppConstant.TYPE_IMG_BIG -> (adapter as NewsAdapter).setNewData(newsList)
+                AppConstant.TYPE_IMG_BIG -> (adapter as NewsBigAdapter).setNewData(newsList)
                 AppConstant.TYPE_TIME -> (adapter as NewsTimeAdapter).setNewData(newsList)
                 AppConstant.TYPE_VIDEO_BIG -> (adapter as VideoBigAdapter).setNewData(videoList)
                 AppConstant.TYPE_VIDEO_SMALL -> (adapter as VideoSmallAdapter).setNewData(videoList)

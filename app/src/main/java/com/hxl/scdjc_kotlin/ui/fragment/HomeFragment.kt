@@ -51,7 +51,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     private val mPresenter by lazy { HomePresenter() }
     private var adapter: BaseQuickAdapter<*, *>? = null
     private val newsCustomAdapter: NewsAdapter by lazy { NewsAdapter(R.layout.item_news_custom, newsList, true) }
-    private val newsBigAdapter: NewsAdapter by lazy { NewsAdapter(R.layout.item_news_big, newsList, true) }
+    private val newsBigAdapter: NewsBigAdapter by lazy { NewsBigAdapter(newsList, true) }
     private val newsColumnAdapter by lazy { NewsColumnAdapter(newsList, true) }
     private val videoBigAdapter: VideoBigAdapter by lazy { VideoBigAdapter(videoList, true) }
     private val videoSmallAdapter: VideoSmallAdapter by lazy { VideoSmallAdapter(videoList, true) }
@@ -260,7 +260,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
             when (name) {
                 AppConstant.TYPE_IMG_MEDIUM -> (adapter as NewsAdapter).setNewData(newsList)
                 AppConstant.TYPE_IMG_SMALL -> (adapter as NewsColumnAdapter).setNewData(newsList)
-                AppConstant.TYPE_IMG_BIG -> (adapter as NewsAdapter).setNewData(newsList)
+                AppConstant.TYPE_IMG_BIG -> (adapter as NewsBigAdapter).setNewData(newsList)
                 AppConstant.TYPE_TEXT -> (adapter as NewsTextAdapter).setNewData(newsList)
                 AppConstant.TYPE_TIME -> (adapter as NewsTimeAdapter).setNewData(newsList)
                 AppConstant.TYPE_VIDEO_BIG -> (adapter as VideoBigAdapter).setNewData(videoList)
@@ -299,19 +299,28 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
         columnAdapter.setOnItemClickListener(object : ColumnAdapter.OnItemClickListener {
             override fun onItemClick(view: View, position: Int) {
-                val (name1, _, checkImgPath, _, _, templateName, id) = childrenList[position]
+                val column = childrenList[position]
                 val intent: Intent
-                if (TextUtils.isEmpty(checkImgPath)) {
+                if (TextUtils.isEmpty(column.checkImgPath)) {
                     intent = Intent(mContext, NewsListActivity::class.java)
-                    intent.putExtra(AppConstant.COLUMN_ID, id)
-                    intent.putExtra(AppConstant.TYPE, templateName)
-                    intent.putExtra(AppConstant.COLUMN_TITLE, name1)
+                    intent.putExtra(AppConstant.COLUMN_ID, column.id)
+                    intent.putExtra(AppConstant.TYPE, column.templateName)
+                    intent.putExtra(AppConstant.COLUMN_TITLE, column.name)
                 } else {
                     intent = Intent(mContext, WebActivity::class.java)
                     intent.putExtra(AppConstant.LINK_URL, "http://v.djc021.com")
                     intent.putExtra(AppConstant.LINK_TITLE, "直播")
                 }
                 startActivity(intent)
+                childrenList[position].isRead = 1
+                columnAdapter.notifyDataSetChanged()
+
+                val isRead = childrenList.count { it.isRead == 1 }  //计算集合满足条件的个数
+                if (isRead == childrenList.size) {
+                    //全部都是已读状态
+                    val mainTabActivity = activity as MainTabActivity
+                    mainTabActivity.notifyIsRead(0)
+                }
             }
         })
     }

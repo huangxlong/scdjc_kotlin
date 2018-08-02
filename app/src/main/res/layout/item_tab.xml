@@ -11,6 +11,16 @@
         android:layout_height="40dp"
         android:layout_centerHorizontal="true" />
 
+
+    <View
+        android:id="@+id/view_has_news"
+        android:layout_width="6dp"
+        android:layout_height="6dp"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@id/iv_photo"
+        android:background="@drawable/shape_round"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"

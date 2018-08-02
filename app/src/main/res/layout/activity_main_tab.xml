@@ -28,6 +28,15 @@
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_lianjin_act" />
 
+            <View
+                android:id="@+id/lianjin_has_news"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@id/iv_lianjin"
+                android:background="@drawable/shape_round"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/tv_lianjin"
                 android:layout_width="wrap_content"
@@ -55,6 +64,15 @@
                 android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_cangjin" />
+
+            <View
+                android:id="@+id/cangjin_has_news"
+                android:layout_width="6dp"
+                android:visibility="gone"
+                android:layout_height="6dp"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@id/iv_cangjin"
+                android:background="@drawable/shape_round" />
 
             <TextView
                 android:id="@+id/tv_cangjin"
@@ -100,6 +118,15 @@
                 android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_juejin" />
+
+            <View
+                android:id="@+id/juejin_has_news"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginLeft="4dp"
+                android:visibility="gone"
+                android:layout_toRightOf="@id/iv_juejin"
+                android:background="@drawable/shape_round" />
 
             <TextView
                 android:id="@+id/tv_juejin"

@@ -24,6 +24,7 @@ class RspDto {
                       var nameRemark: String,
                       var templateName: String,
                       var id: Int,
+                      var isRead:Int,   //0未读，1已读
                       var childrenColumn: List<Column>,
                       var advertisingList: List<Advertising>) : Serializable
 
@@ -89,6 +90,7 @@ class RspDto {
                        var videoDuration: String,
                        var thumbnailPath: String,
                        var voicePath: String,
+                       var today: Boolean,
                        var children: List<Article>?) : Serializable
 
     /**
