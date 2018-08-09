@@ -47,7 +47,7 @@ class ColumnAdapter(context: Context, children: List<RspDto.Column>) : RecyclerV
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivPhoto = itemView.findViewById<ImageView>(R.id.iv_photo)!!
         val tvName = itemView.findViewById<TextView>(R.id.tv_name)!!
-        val viewHasNews = itemView.findViewById<View>(R.id.view_has_news)
+        val viewHasNews = itemView.findViewById<View>(R.id.view_has_news)!!
     }
 
     interface OnItemClickListener {

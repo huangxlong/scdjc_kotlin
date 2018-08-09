@@ -2,6 +2,7 @@ package com.hxl.scdjc_kotlin.app
 
 import android.app.Activity
 import android.app.Application
+import com.hxl.scdjc_kotlin.util.SPUtils
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import java.util.ArrayList
@@ -43,7 +44,12 @@ open class App : Application() {
         super.onCreate()
         sApp = this
         Logger.addLogAdapter(AndroidLogAdapter())
+
+        val serviceUrl = SPUtils.instance.getString(AppConstant.SERVICE_URL, "")
+        if (!serviceUrl!!.isEmpty()) {
+            UrlConstant.BASE_URL = serviceUrl!!
+        } else {
+            SPUtils.instance.put(AppConstant.SERVICE_URL, UrlConstant.BASE_URL)
+        }
     }
-
-
 }

@@ -10,11 +10,14 @@ import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
 import com.gyf.barlibrary.ImmersionBar
 import com.hxl.scdjc_kotlin.R
+import com.hxl.scdjc_kotlin.app.AppConstant
 import com.hxl.scdjc_kotlin.app.UrlConstant
 import com.hxl.scdjc_kotlin.base.BaseActivity
 import com.hxl.scdjc_kotlin.bean.AdvertisingBean
 import com.hxl.scdjc_kotlin.mvp.contract.SplashContract
 import com.hxl.scdjc_kotlin.mvp.presenter.SplashPresenter
+import com.hxl.scdjc_kotlin.util.SPUtils
+import com.hxl.scdjc_kotlin.view.ACache
 import kotlinx.android.synthetic.main.activity_splash.*
 
 /**

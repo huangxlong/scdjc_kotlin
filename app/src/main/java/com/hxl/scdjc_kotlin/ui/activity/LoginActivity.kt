@@ -1,6 +1,7 @@
 package com.hxl.scdjc_kotlin.ui.activity
 
 import android.content.Intent
+import android.os.SystemClock
 import android.view.View
 import com.gyf.barlibrary.ImmersionBar
 import com.hxl.scdjc_kotlin.R
@@ -55,7 +56,19 @@ class LoginActivity : View.OnClickListener, BaseActivity(), LoginContract.View {
             R.id.iv_code -> {
             }
             R.id.layout_logo -> {
+                turn2Environment()
             }
+        }
+    }
+
+    private val counts = 5//点击次数
+    private val duration = (3 * 1000).toLong()//规定有效时间
+    private val mHits = LongArray(counts)
+    private fun turn2Environment() {
+        System.arraycopy(mHits, 1, mHits, 0, mHits.size - 1)
+        mHits[mHits.size - 1] = SystemClock.uptimeMillis()
+        if (mHits[0] >= (SystemClock.uptimeMillis() - duration)) {
+            startActivity(Intent(this@LoginActivity, EnvironmentChangeActivity::class.java))
         }
     }
 

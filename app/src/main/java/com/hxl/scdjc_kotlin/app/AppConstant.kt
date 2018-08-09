@@ -12,6 +12,7 @@ object AppConstant {
     const val PRODUCT = "product"
     const val SEARCH = "search"
 
+    const val SERVICE_URL = "url"
 
     const val VIDEO_ID = "video_id"
     const val ARTICLE_ID = "article_id"
