@@ -25,7 +25,7 @@ class UserPresenter : BasePresenter<UserContract.View>(), UserContract.Presenter
                         },
                         { throwable ->
                             mRootView?.apply {
-                                showError(throwable.cause!!.message!!, ExceptionHandle.errorCode)
+                                showError(throwable.message!!, ExceptionHandle.errorCode)
                             }
                         }
                 )

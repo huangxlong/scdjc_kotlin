@@ -27,7 +27,7 @@ class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Pre
                         },
                         { throwable ->
                             mRootView?.apply {
-                                showError(throwable.cause!!.message!!, ExceptionHandle.errorCode)
+                                showError(throwable.message!!, ExceptionHandle.errorCode)
                             }
                         })
         addSubscription(disposable!!)

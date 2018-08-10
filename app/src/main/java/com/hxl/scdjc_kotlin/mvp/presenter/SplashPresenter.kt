@@ -23,7 +23,7 @@ class SplashPresenter : BasePresenter<SplashContract.View>(), SplashContract.Pre
                         },
                         { throwable ->
                             mRootView?.apply {
-                                showError(throwable.cause!!.message!!, ExceptionHandle.errorCode)
+                                showError(throwable.message!!, ExceptionHandle.errorCode)
                             }
                         }
                 )

@@ -31,7 +31,7 @@ class ExceptionHandle {
                 errorCode = ErrorStatus.NETWORK_ERROR
             } else if (e is ConnectException) { //均视为网络错误
                 Logger.e("TAG", "网络连接异常: " + e.message)
-                errorMsg = "网络连接异常"
+                errorMsg = "服务器异常，请稍后再试"
                 errorCode = ErrorStatus.NETWORK_ERROR
             } else if (e is JsonParseException
                     || e is JSONException
@@ -40,7 +40,7 @@ class ExceptionHandle {
                 errorMsg = "数据解析异常"
                 errorCode = ErrorStatus.SERVER_ERROR
             } else if (e is ApiException) {//服务器返回的错误信息
-                errorMsg = e.message.toString()
+                errorMsg = e.cause!!.message.toString()
                 errorCode = ErrorStatus.SERVER_ERROR
             } else if (e is UnknownHostException) {
                 Logger.e("TAG", "网络连接异常: " + e.message)

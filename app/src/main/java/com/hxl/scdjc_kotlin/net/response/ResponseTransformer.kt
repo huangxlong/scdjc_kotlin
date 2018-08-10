@@ -53,7 +53,7 @@ object ResponseTransformer {
             } else if (code == ErrorStatus.SUCCESS && tResponse.data == null) {
                 Observable.just("" as T)
             } else {
-                Observable.error(ApiException(message))
+                Observable.error(Throwable(ExceptionHandle.handleException(ApiException(message))))
             }
         }
     }

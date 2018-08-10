@@ -26,7 +26,7 @@ class ResetPsdPresenter : BasePresenter<ResetPsdContract.View>(), ResetPsdContra
                         { throwable ->
                             mRootView?.apply {
                                 mRootView!!.dismissLoading()
-                                showError(throwable.cause!!.message!!, ExceptionHandle.errorCode)
+                                showError(throwable.message!!, ExceptionHandle.errorCode)
                             }
                         }
                 )

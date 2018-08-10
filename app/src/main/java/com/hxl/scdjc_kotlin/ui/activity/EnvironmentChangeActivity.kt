@@ -1,5 +1,6 @@
 package com.hxl.scdjc_kotlin.ui.activity
 
+import android.os.Handler
 import android.view.View
 import com.hxl.scdjc_kotlin.R
 import com.hxl.scdjc_kotlin.app.AppConstant
@@ -44,9 +45,7 @@ class EnvironmentChangeActivity : BaseActivity(), View.OnClickListener {
             SPUtils.instance.put(AppConstant.SERVICE_URL, UrlConstant.TEST_URL)
         }
         ToastUtil.show(this@EnvironmentChangeActivity, "修改成功,重启生效")
-        System.exit(0)
-
-
+        Handler().postDelayed({ System.exit(0) }, 1000)
+//        System.exit(0)
     }
-
 }

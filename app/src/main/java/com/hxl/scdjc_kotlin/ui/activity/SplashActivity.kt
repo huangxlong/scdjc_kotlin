@@ -73,6 +73,7 @@ class SplashActivity : BaseActivity(), SplashContract.View {
     }
 
     override fun showError(errorMsg: String, errorCode: Int) {
+        startAct()
     }
 
     private fun startAct() {

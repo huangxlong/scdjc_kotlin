@@ -28,7 +28,7 @@ class LoginPresenter : BasePresenter<LoginContract.View>(), LoginContract.Presen
                         { throwable ->
                             mRootView?.dismissLoading()
                             mRootView?.apply {
-                                showError(throwable.cause!!.message!!, ExceptionHandle.errorCode)
+                                showError(throwable.message!!, ExceptionHandle.errorCode)
                             }
                         })
         addSubscription(disposable)

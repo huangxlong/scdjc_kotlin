@@ -6,10 +6,12 @@ import android.view.View
 import com.gyf.barlibrary.ImmersionBar
 import com.hxl.scdjc_kotlin.R
 import com.hxl.scdjc_kotlin.app.AppConstant
+import com.hxl.scdjc_kotlin.app.UrlConstant
 import com.hxl.scdjc_kotlin.base.BaseActivity
 import com.hxl.scdjc_kotlin.bean.LoginBean
 import com.hxl.scdjc_kotlin.mvp.contract.LoginContract
 import com.hxl.scdjc_kotlin.mvp.presenter.LoginPresenter
+import com.hxl.scdjc_kotlin.util.SPUtils
 import com.hxl.scdjc_kotlin.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.input_layout.*
@@ -41,13 +43,24 @@ class LoginActivity : View.OnClickListener, BaseActivity(), LoginContract.View {
         immersionBar = ImmersionBar.with(this).statusBarDarkFont(true, 0.2f)
         immersionBar.init()
 
-        et_account.setText("djc_android")
-        et_password.setText("123123")
-        et_account.setSelection("djc_android".length)
+        setUserAndPsd()
 
         main_btn_login.setOnClickListener(this)
         iv_code.setOnClickListener(this)
         layout_logo.setOnClickListener(this)
+    }
+
+    private fun setUserAndPsd() {
+        val serviceUrl = SPUtils.instance.getString(AppConstant.SERVICE_URL, "")
+        if (serviceUrl == UrlConstant.ONLINE_URL) {
+            et_account.setText(UrlConstant.ONLINE_USER)
+            et_password.setText(UrlConstant.ONLINE_PASSWORD)
+            et_account.setSelection("djc_android".length)
+        } else {
+            et_account.setText(UrlConstant.TEST_USER)
+            et_password.setText(UrlConstant.TEST_PASSWORD)
+            et_account.setSelection("djc1".length)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -99,9 +112,13 @@ class LoginActivity : View.OnClickListener, BaseActivity(), LoginContract.View {
         ToastUtil.show(this@LoginActivity, errorMsg)
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         immersionBar.destroy()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUserAndPsd() //重新设置账号密码
     }
 }
